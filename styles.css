@@ -1,36 +1,87 @@
 
 body {
     /* background-image:url(premium_photo-1674048382856-aa9984d8b391.jpeg); */
-    background-color: #4A5043;
+    background-color: #c8d8e4;
 }
 h1 {
     /* font */
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    text-shadow: 2px 4px 4px #FFCB47;
-}
+    text-shadow: 2px 0px 4px #c8d8e4;
+    width:fit-content;
+    text-align: center;
 
+    
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+.header {
+    position: sticky;
+}
 p {
     /* font */
     font-family: 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+.logoLink {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-shadow: 2px 4px 4px #c8d8e4;
+    font-size:30px;
+    width: fit-content;
+    text-align: center;
+    border-style:ridge;
+
+    margin: auto;   
+    padding: 4px;
+    width:fit-content;
+
+}
 .introParagraph {
     background-color: rgb(207, 158, 62);
     color: rgb(100, 72, 6);
-    padding: 10px;
-    margin: 3% 25% auto;
-    text-align: center;
+    
+    text-align: left;
+    grid-area: "text1";
     /* font  */
 }
 .otterTitle {
+    display: flex;
+    justify-content: space-around;
     border-style: solid;
-    border-color: #8AA1B1;
+    border-color: #ffffff;
     background-color: #9AC2C9;
-    color: #4A5043;
+    color: #4c5786;
     border-radius: 0px;
-    width:auto;
-    margin: -8px -8px -8px -8px;
-    text-align: center;
+    width: auto;
+    margin: -8px -8px -8px -8px;   
+    padding: 8px 8px 8px 8px;
+    position: sticky;
+    top: 0px;
+    align-items: center;
+
+    
 }
+.supportingLink {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-shadow: 2px 4px 4px #c8d8e4;
+    width:fit-content;
+    text-align: center;
+    color: #4c5786;
+    text-decoration:none;
+}
+.siteGridContainer {
+    display: grid;
+    margin-top:40px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 30em 30em 30em 30em 30em;
+    grid-template-areas:
+        "text1 text1 text1"
+        "img1 text2 text2"
+        ". img2 text3"
+        ". . img3"
+        ". . ."
+}
+
 .otterImage {
    /* width: 12%;
    height: auto;
@@ -70,12 +121,8 @@ p {
     
 }
 .imageInFrame {
-    width: 10.3em;
-    height: auto;
-    position: relative;
-    top: -49px;
-    left: 117px;
-    z-index: -1;
+    grid-area: img1;
+    
 }
 
 .aboutMePicAndFrame {
