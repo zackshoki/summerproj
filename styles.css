@@ -1,0 +1,87 @@
+
+body {
+    /* background-image:url(premium_photo-1674048382856-aa9984d8b391.jpeg); */
+    background-color: #4A5043;
+}
+h1 {
+    /* font */
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-shadow: 2px 4px 4px #FFCB47;
+}
+
+p {
+    /* font */
+    font-family: 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.introParagraph {
+    background-color: rgb(207, 158, 62);
+    color: rgb(100, 72, 6);
+    padding: 10px;
+    margin: 3% 25% auto;
+    text-align: center;
+    /* font  */
+}
+.otterTitle {
+    border-style: solid;
+    border-color: #8AA1B1;
+    background-color: #9AC2C9;
+    color: #4A5043;
+    border-radius: 0px;
+    width:auto;
+    margin: -8px -8px -8px -8px;
+    text-align: center;
+}
+.otterImage {
+   /* width: 12%;
+   height: auto;
+   position:absolute;
+   bottom: 3%;
+   left: 3%; */
+   width: 12%;
+   height: auto;
+   position: absolute;
+   bottom: 65%;
+   left: 9%;
+
+}
+.mirroredOtterImage {
+    /* width: 12%;
+    height: auto;
+    transform: rotateY(180deg);
+    position: absolute;
+    bottom: 3%;
+    right: 3%; */
+    width: 12%;
+    height: auto;
+    transform: rotateY(180deg);
+    position: absolute;
+    bottom: 66%;
+    right: 9%;
+}
+.bigFrame {
+
+}
+.hangingFrame {
+    content: url(a-wooden-frame-hanging-alone-against-a-transparent-backdrop-free-png.webp);
+    width: 24em;
+    position: absolute;
+    top: 0%;
+    left: 1em;
+    
+}
+.imageInFrame {
+    width: 10.3em;
+    height: auto;
+    position: relative;
+    top: -49px;
+    left: 117px;
+    z-index: -1;
+}
+
+.aboutMePicAndFrame {
+
+}
+
+.pastProjectsPicAndFrame {
+
+}
