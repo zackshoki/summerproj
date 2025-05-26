@@ -26,24 +26,28 @@ p {
 .logoLink {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     text-shadow: 2px 4px 4px #c8d8e4;
-    font-size:30px;
+    font-size: 1.35em;
     width: fit-content;
     text-align: center;
     border-style:ridge;
 
     margin: auto;   
-    padding: 4px;
+    padding: 0.15em 0.5em;
     width:fit-content;
 
 }
 .introParagraph {
-    background-color: rgb(207, 158, 62);
-    color: rgb(100, 72, 6);
-    
-    text-align: left;
-    grid-area: "text1";
+    color: rgb(0, 0, 0);
+    font-size:10px;
+    text-align:justify;
+    grid-area: text1;
+    border-style: solid;
+    border-color: white;
+    border-width: 0.5em;
+    padding: 0px 5px
     /* font  */
 }
+
 .otterTitle {
     display: flex;
     justify-content: space-around;
@@ -68,50 +72,22 @@ p {
     text-align: center;
     color: #4c5786;
     text-decoration:none;
+    font-size: 13px;
 }
 .siteGridContainer {
     display: grid;
-    margin-top:40px;
+    margin-top: 40px;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 30em 30em 30em 30em 30em;
+    grid-template-rows: auto;
+    align-items: baseline;
     grid-template-areas:
         "text1 text1 text1"
         "img1 text2 text2"
         ". img2 text3"
         ". . img3"
-        ". . ."
+        "finalText finalText finalText";
 }
 
-.otterImage {
-   /* width: 12%;
-   height: auto;
-   position:absolute;
-   bottom: 3%;
-   left: 3%; */
-   width: 12%;
-   height: auto;
-   position: absolute;
-   bottom: 65%;
-   left: 9%;
-
-}
-.mirroredOtterImage {
-    /* width: 12%;
-    height: auto;
-    transform: rotateY(180deg);
-    position: absolute;
-    bottom: 3%;
-    right: 3%; */
-    width: 12%;
-    height: auto;
-    transform: rotateY(180deg);
-    position: absolute;
-    bottom: 66%;
-    right: 9%;
-}
-.bigFrame {
-
-}
 .hangingFrame {
     content: url(a-wooden-frame-hanging-alone-against-a-transparent-backdrop-free-png.webp);
     width: 24em;
@@ -120,11 +96,44 @@ p {
     left: 1em;
     
 }
-.imageInFrame {
+.img1 {
     grid-area: img1;
+    position: sticky;
+    top: 60px;
     
 }
-
+.img2 {
+    grid-area: img2;
+    position: sticky;
+    top: 60px;
+}
+.img3 {
+    grid-area: img3;
+    position: sticky;
+    top: 60px;
+}
+.text2 {
+    grid-area: text2;
+    border-style: solid;
+    border-color: white;
+    border-width: 0.5em;
+    padding: 0px 5px
+}
+.text3 {
+    grid-area: text3;
+    border-style: solid;
+    border-color: white;
+    border-width: 0.5em;
+    padding: 0px 5px
+}
+.finalText {
+    grid-area: finalText;
+    border-style: solid;
+    text-align: center;
+    border-color: white;
+    border-width: 0.5em;
+    padding: 0px 5px
+}
 .aboutMePicAndFrame {
 
 }
