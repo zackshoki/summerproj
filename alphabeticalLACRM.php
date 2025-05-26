@@ -1,4 +1,4 @@
-<h1>
+<h1 style="text-align: left;font-size: 180px;">
 <?php
 
 $employees = ["Hamida", "Alana Joy", "Isabelle", "Zaid", "Zack", "Eva"];
