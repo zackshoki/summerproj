@@ -44,7 +44,7 @@ p {
     border-style: solid;
     border-color: white;
     border-width: 0.5em;
-    padding: 0px 5px
+    padding: 0px 5px;
     /* font  */
 }
 
@@ -76,9 +76,10 @@ p {
 }
 .siteGridContainer {
     display: grid;
-    margin-top: 40px;
+    margin-top: 16px;
+    margin-bottom: 0px;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto;
+    grid-template-rows: auto auto auto auto auto;
     align-items: baseline;
     grid-template-areas:
         "text1 text1 text1"
@@ -86,6 +87,7 @@ p {
         ". img2 text3"
         ". . img3"
         "finalText finalText finalText";
+    gap: 5px;
 }
 
 .hangingFrame {
@@ -112,12 +114,19 @@ p {
     position: sticky;
     top: 60px;
 }
+.img1, .img2, .img3 {
+    border-style: solid;
+    border-color: white;
+    border-width: 10px;
+    place-self: start;
+}
+
 .text2 {
     grid-area: text2;
     border-style: solid;
     border-color: white;
     border-width: 0.5em;
-    padding: 0px 5px
+    padding: 0px 5px;
 }
 .text3 {
     grid-area: text3;
@@ -126,13 +135,17 @@ p {
     border-width: 0.5em;
     padding: 0px 5px
 }
+.text1, .text2, .text3 {
+    place-self: stretch;
+}
 .finalText {
     grid-area: finalText;
     border-style: solid;
     text-align: center;
     border-color: white;
     border-width: 0.5em;
-    padding: 0px 5px
+    padding: -20px 5px;
+    margin: 10px;
 }
 .aboutMePicAndFrame {
 

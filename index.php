@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-
+<!-- for 5/27: 
+    how can we make it so that the sticky images stop sticking whenever we hit the final text?
+    make it so that hovering over any of the images makes them opaque with text and clicking them sends you to another website
+    make the colors and fonts prettier, as well as experiment with the border radius and the colors of the background and size of padding to create a really modern looking website
+    finish the about me page, using this page as a template.  -->
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width">
     <title>ZACKARIA</title>
@@ -18,13 +22,13 @@
         
     </div>
     <div class="siteGridContainer">
-        <div class="img1">
+        <div class="imgWrapper img1">
             <!-- picture --> <img src="IMG_68.jpg">
         </div>
-        <div class="img2">
+        <div class="imgWrapper img2">
             <!-- picture --> <img src="IMG_3893.jpeg">
         </div>
-        <div class="img3">
+        <div class="imgWrapper img3">
             <!-- picture --> <img src="IMG_0057.jpeg">
         </div>
         <div class="introParagraph">
@@ -50,8 +54,9 @@
         </div>
         <div class="text2">
             <p>
-            i do these things
-            </p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum           </p>
+            
         </div>
         <div class="text3">
             <p>
