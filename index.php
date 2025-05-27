@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- for 5/27: 
     how can we make it so that the sticky images stop sticking whenever we hit the final text?
+        try using a wrapper to see images are taking up a certain percentage of the screen and cropping the bottom off if so
     make it so that hovering over any of the images makes them opaque with text and clicking them sends you to another website
     make the colors and fonts prettier, as well as experiment with the border radius and the colors of the background and size of padding to create a really modern looking website
     finish the about me page, using this page as a template.  -->
@@ -60,7 +61,7 @@
         </div>
         <div class="text3">
             <p>
-            now i spend my time as an LACRM coding fellow!
+            now i spend my time as an LACRM coding fellow, with the cool people that you can see below! Currently, I am working on this website, but after this, the project will shift to be something new. I am excited to showcase my skills to the world!. 
             </p>
         </div>
         <div class="finalText">

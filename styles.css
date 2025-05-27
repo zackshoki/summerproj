@@ -119,6 +119,15 @@ p {
     border-color: white;
     border-width: 10px;
     place-self: start;
+    justify-self: stretch;
+    align-self: stretch;
+    
+}
+
+@media (min-aspect-ratio: 15/8) {
+    .img1, .img2, .img3 {
+        max-height: 
+    }
 }
 
 .text2 {
