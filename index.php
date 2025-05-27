@@ -1,15 +1,27 @@
 <!DOCTYPE html>
+<?php
+    include("include/init.php");
+    
+    // $posts = getPosts();
+    // var_dump($posts);
+   echoHeader("ZACKARIA");
+?>
 <!-- for 5/27: 
     how can we make it so that the sticky images stop sticking whenever we hit the final text?
         try using a wrapper to see images are taking up a certain percentage of the screen and cropping the bottom off if so
     make it so that hovering over any of the images makes them opaque with text and clicking them sends you to another website
     make the colors and fonts prettier, as well as experiment with the border radius and the colors of the background and size of padding to create a really modern looking website
     finish the about me page, using this page as a template.  -->
-<head>
+    <!-- make the get all posts function
+    make the get posts function 
+    populate the practice posts array with all the stuff that you have on ur page
+    add the linkes in your url or wtv-->
+
+    <!-- <head>
     <meta charset="utf-8" name="viewport" content="width=device-width">
     <title>ZACKARIA</title>
     <link rel="icon" type="image/x-icon" href="Photo on 5-22-25 at 9.51 AM.jpg">
-    <!-- figure out how to change the font :D -->
+=
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -21,7 +33,8 @@
             </div>
         <a href="https://github.com/zackshoki" target="_blank" class="supportingLink">past projects</a> 
         
-    </div>
+    </div> -->
+
     <div class="siteGridContainer">
         <div class="imgWrapper img1">
             <!-- picture --> <img src="IMG_68.jpg">

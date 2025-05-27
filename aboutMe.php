@@ -1,11 +1,13 @@
-<!DOCTYPE html>
-    <head>
-        <meta charset="utf-8">
-        <title>ABOUT ZACK</title>
-        <style></style>
-    </head>
-    <body>
+<?php
+    include("include/init.php");
+    
+    // $posts = getPosts();
+    // var_dump($posts);
+    echoHeader("About Me"); 
+ ?>
         <h1>who is he?</h1>
         <p>a robust computer engineer is in the making. watch out </p>
         <img href="">
     </body>
+    <!-- </html> -->
+<?php echoFooter() ?>
