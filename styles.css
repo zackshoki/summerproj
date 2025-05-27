@@ -158,6 +158,19 @@ p {
     padding: -20px 5px;
     margin: 10px;
 }
+
+.projectContainer {
+    display: flex;
+    border-style: solid;
+    flex-direction: column;
+    align-items: stretch;
+   width: 98vw;
+}
+
+.projectBlock > h2 {
+    text-align: center;
+}
+
 .aboutMePicAndFrame {
 
 }
