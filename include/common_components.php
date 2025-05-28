@@ -8,13 +8,16 @@
                         <link rel="icon" type="image/x-icon" href="Photo on 5-22-25 at 9.51 AM.jpg">
 
                         <link rel="stylesheet" href="styles.css">
+						<link rel="preconnect" href="https://fonts.googleapis.com">
+						<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+						<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
                     </head>
 			        <body>		            
 			            <div class="otterTitle">
                             <a href="aboutMe.php" target="" class="supportingLink">about me</a>
                             
                                 <div class="logoLink" href="index.php">
-                                    <a href="index.php">ZACK SHOKI</a>
+                                    <a href="index.php">zack shoki</a>
                                 </div>
                             
                              <a href="pastProjects.php" target="" class="supportingLink">past projects</a> 

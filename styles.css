@@ -3,6 +3,7 @@ body {
     /* background-image:url(premium_photo-1674048382856-aa9984d8b391.jpeg); */
     background-color: #2D3142;
     color: #DED6D1;
+    
 }
 h1 {
     /* font */
@@ -23,10 +24,10 @@ img {
 p {
     /* font */
     font-family: 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 25px 15px;
 }
 .logoLink {
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 1.35em;
+    
     width: fit-content;
     text-align: center;
     border-style:hidden;
@@ -47,8 +48,17 @@ p {
     padding: 0px 5px;
     /* font  */
 }
-.logoLink > a, a:link, a:visited, a:hover, a:active {
+
+.logoLink > a, .logoLink>:link, .logoLink>a:visited, .logoLink>a:hover, .logoLink>a:active {
     color:#D4C5E2;
+    text-decoration: none;
+}
+a {
+    color:#D4C5E2;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+a:hover {
     text-decoration: none;
 }
 .otterTitle {
@@ -60,35 +70,51 @@ p {
     border-radius: 0px;
     width: auto;
     border-width: auto;
-    margin: -8px -8px 0px -8px;    
+    margin: -8px -4px 0px -4px;    
     top: 5px;
     padding: 8px 8px 8px 8px;
     position: sticky;
     align-items: center;
     border-radius: 30px;
     background-color: #607394;
+    box-shadow: 0px 0px 10px black;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 3px;
+    font-size: 40px;
 }
 .supportingLink {
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     width:fit-content;
     text-align: center;
-
-    color: #4c5786;
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 20px;
+    color: #D4C5E2;
     text-decoration:none;
     font-size: 13px;
+    background-color: #6d809f;
+}
+.supportingLink:hover, .logoLink:hover {
+    filter:brightness(1.2);
 }
 .siteGridContainer {
     display: grid;
     margin-top: 16px;
     margin-bottom: 0px;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto auto auto auto auto;
+    grid-template-rows: auto 1fr 1fr 1fr auto auto;
     align-items: baseline;
     grid-template-areas:
         "text1 text1 text1"
         "img1 text2 text2"
         ". img2 text3"
         ". . img3"
+        "separator separator separator"
         "finalText finalText finalText";
     gap: 20px;
 }
@@ -104,18 +130,19 @@ p {
 .img1 {
     grid-area: img1;
     position: sticky;
-    top: 65px;
+    top: 95px;
+    
     
 }
 .img2 {
     grid-area: img2;
     position: sticky;
-    top: 65px;
+    top: 95px;
 }
 .img3 {
     grid-area: img3;
     position: sticky;
-    top: 65px;
+    top: 95px;
 }
 .img1, .img2, .img3 {
     border-style: solid;
@@ -130,12 +157,7 @@ p {
 
 
 
-@media (min-aspect-ratio: 15/8) {
-    .img1, .img2, .img3 {
-        max-height: auto; 
-        /* make this so that the images get smaller if the screen is wide enough */
-    }
-}
+
 
 .text2 {
     grid-area: text2;
@@ -159,18 +181,40 @@ p {
     border-style: hidden;
     text-align: center;
 
-    padding: -20px 5px;
+    padding: 2px 1px;
+    padding-bottom: 0px;
     margin: 10px;
     border-radius: 30px;
     background-color: #4F5D75;
+    
 } 
+.finalText > p {
+    margin: 16px auto;
+}
 .introParagraph, .text2, .text3 {
     border-style: hidden;
     border-radius: 10px; 
     background-color: #4F5D75;
+    font-size: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
-.img1, .img2, .img3, .introParagraph, .text2, .text3 {
-
+.introParagraph:hover, .text2:hover, .text3:hover, .finalText:hover {
+    background-color: #6d809f;
+    box-shadow: 0px 0px 15px black;
+}
+.textUnderImage {
+    opacity: 0;
+}
+.img1:hover, .img2:hover, .img3:hover {
+    border-color:  #6d809f;
+    filter: blur(5px);
+    opacity: 0.7;
+    .textUnderImage {
+        opacity: 1;
+        color: white;
+        filter: blur(-5px);
+    }
 }
 .projectContainer {
     display: flex;
@@ -188,17 +232,36 @@ p {
 .projectBlock > h2 {
     text-align: center;
 }
-
+.separator {
+    grid-area: separator;
+    justify-self: center;
+    height: 1rem;
+    width: auto;
+}
 .pageTitle {
     margin: auto;
     text-align: center;
 }
 
-
+@media (max-height: 1000px) {
+    .img1, .img2, .img3 {
+        max-height: 70vh; 
+        width:auto;
+        /* make this so that the images get smaller if the screen is wide enough */
+    }
+    .finalText {
+        max-height: 10vh;
+        width:auto;
+    }
+}
 .aboutMePicAndFrame {
 
 }
 
 .pastProjectsPicAndFrame {
 
+}
+
+.text2, .text3 {
+    padding: -5px auto;
 }
