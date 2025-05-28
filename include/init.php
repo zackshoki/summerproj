@@ -8,4 +8,4 @@
     // so other functions have access to the database
     include('db_query.php');
     include('common_components.php');
-    include('posts.php');
+    include('projects.php');

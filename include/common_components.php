@@ -1,5 +1,4 @@
 <?php
-// tweak header and footer to suit my page
 	function echoHeader($pageTitle){ 
 			echo '
 			    <!DOCTYPE html>

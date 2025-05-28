@@ -1,7 +1,8 @@
 
 body {
     /* background-image:url(premium_photo-1674048382856-aa9984d8b391.jpeg); */
-    background-color: #c8d8e4;
+    background-color: #2D3142;
+    color: #DED6D1;
 }
 h1 {
     /* font */
@@ -25,19 +26,18 @@ p {
 }
 .logoLink {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    text-shadow: 2px 4px 4px #c8d8e4;
     font-size: 1.35em;
     width: fit-content;
     text-align: center;
-    border-style:ridge;
-
+    border-style:hidden;
+    border-radius:7px;
+    background-color: #6d809f;
     margin: auto;   
     padding: 0.15em 0.5em;
     width:fit-content;
 
 }
 .introParagraph {
-    color: rgb(0, 0, 0);
     font-size:10px;
     text-align:justify;
     grid-area: text1;
@@ -48,29 +48,31 @@ p {
     /* font  */
 }
 .logoLink > a, a:link, a:visited, a:hover, a:active {
-    color:#4c5786;
+    color:#D4C5E2;
     text-decoration: none;
 }
 .otterTitle {
     display: flex;
     justify-content: space-around;
-    border-style: solid;
-    border-color: #ffffff;
-    background-color: #9AC2C9;
+    border-style: hidden;
+    border-color: #4F5D75;
     
     border-radius: 0px;
     width: auto;
-    margin: -8px -8px -8px -8px;   
+    border-width: auto;
+    margin: -8px -8px 0px -8px;    
+    top: 5px;
     padding: 8px 8px 8px 8px;
     position: sticky;
-    top: 0px;
     align-items: center;
+    border-radius: 30px;
+    background-color: #607394;
 }
 .supportingLink {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    text-shadow: 2px 4px 4px #c8d8e4;
     width:fit-content;
     text-align: center;
+
     color: #4c5786;
     text-decoration:none;
     font-size: 13px;
@@ -88,7 +90,7 @@ p {
         ". img2 text3"
         ". . img3"
         "finalText finalText finalText";
-    gap: 5px;
+    gap: 20px;
 }
 
 .hangingFrame {
@@ -102,28 +104,31 @@ p {
 .img1 {
     grid-area: img1;
     position: sticky;
-    top: 60px;
+    top: 65px;
     
 }
 .img2 {
     grid-area: img2;
     position: sticky;
-    top: 60px;
+    top: 65px;
 }
 .img3 {
     grid-area: img3;
     position: sticky;
-    top: 60px;
+    top: 65px;
 }
 .img1, .img2, .img3 {
     border-style: solid;
-    border-color: white;
-    border-width: 10px;
+    border-color: #4F5D75;
+    border-width: 20px;
+    border-radius: 30px;
     place-self: start;
     justify-self: stretch;
     align-self: stretch;
-    
+    overflow: hidden;
 }
+
+
 
 @media (min-aspect-ratio: 15/8) {
     .img1, .img2, .img3 {
@@ -151,25 +156,44 @@ p {
 }
 .finalText {
     grid-area: finalText;
-    border-style: solid;
+    border-style: hidden;
     text-align: center;
-    border-color: white;
-    border-width: 0.5em;
+
     padding: -20px 5px;
     margin: 10px;
+    border-radius: 30px;
+    background-color: #4F5D75;
+} 
+.introParagraph, .text2, .text3 {
+    border-style: hidden;
+    border-radius: 10px; 
+    background-color: #4F5D75;
 }
+.img1, .img2, .img3, .introParagraph, .text2, .text3 {
 
+}
 .projectContainer {
     display: flex;
-    border-style: solid;
     flex-direction: column;
     align-items: stretch;
-   width: 98vw;
+   margin: auto;
+   width: 100%;
+   gap: 3px;
 }
-
+.projectBlock {
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 5px;
+}
 .projectBlock > h2 {
     text-align: center;
 }
+
+.pageTitle {
+    margin: auto;
+    text-align: center;
+}
+
 
 .aboutMePicAndFrame {
 
