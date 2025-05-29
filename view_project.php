@@ -10,12 +10,17 @@ if (isset($_REQUEST['projectId'])) {
     // save project to variable
 
     $project = getProject($_REQUEST['projectId']);
-    debugOutput($project);
+    //debugOutput($project);
 } else {
     echo "no project is available.";
 }
-    
-    // echoHeader($project['title']);
-    // echo ""
-    //     <div>".$project['title']."</div>    
-    // ";    
+$image = $project['image'];
+   $description = $project['longDescription'];
+    echoHeader($project['title']);
+    echo "
+        <div class='pageTitle'>".$project['title']."</div>   
+        <div>
+        <img src='$image'>
+        </div> 
+        <div class='introParagraph'>$description</div>
+    ";    

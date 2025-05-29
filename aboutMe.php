@@ -2,9 +2,19 @@
     include("include/init.php");
     echoHeader("About Me"); 
  ?>
-        <h1>who is he?</h1>
-        <p>a robust computer engineer is in the making. watch out </p>
-        <img href="">
-    </body>
-    <!-- </html> -->
+        <div class="pageTitle">about me</div>
+        <div class="aboutMeGrid"> 
+            <div class="headshot"><img src="headshot.jpeg"></div>
+            <div class="aboutMe1">from jefferson city, tanzanian heritage</div>
+            <div class="aboutMe2">i study at washu</div>
+            <div class="aboutMe3">i play the double bass</div>
+            <div class="aboutMe4">rugby in the free time</div>
+            <div class="homeImage"></div>
+            <div class="schoolImage"></div>
+            <div class="musicImage"></div>
+            <div class="rugbyImage"></div>
+        </div>
+        
+
+
 <?php echoFooter() ?>

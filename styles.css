@@ -86,7 +86,8 @@ a:hover {
     font-size: 40px;
 }
 .supportingLink {
-    width:fit-content;
+    width:7%;
+    margin: auto;
     text-align: center;
     padding: 20px;
     padding-top: 10px;
@@ -222,15 +223,31 @@ a:hover {
     align-items: stretch;
    margin: auto;
    width: 100%;
-   gap: 3px;
+   gap: 20px;
 }
 .projectBlock {
     border-style: solid;
     border-radius: 3px;
     border-width: 5px;
-}
-.projectBlock > h2 {
+    border-style: hidden;
+    border-radius: 10px; 
+    background-color: #4F5D75;
+    font-size: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: auto 20px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 15px black;
+}
+
+h2 > a {
+    color: white;
+    background-color: #4F5D75;
+    opacity: 0.7;
+    z-index: -2;
 }
 .separator {
     grid-area: separator;
@@ -241,7 +258,23 @@ a:hover {
 .pageTitle {
     margin: auto;
     text-align: center;
+    width: fit-content;
+    text-align: center;
+    border-style:hidden;
+    border-radius:7px;
+    background-color: #607394;
+    margin: 15px auto 10px auto;
+    padding: 0.15em 0.5em;
+    width:fit-content;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 3px;
+    font-size: 30px;
+    box-shadow: 0px 0px 30px black;
 }
+
 
 @media (max-height: 1000px) {
     .img1, .img2, .img3 {
@@ -265,3 +298,20 @@ a:hover {
 .text2, .text3 {
     padding: -5px auto;
 }
+
+.aboutMeGrid { /* items MUST have the grid-area: "name" tag!!! */
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 50% 1fr;
+    grid-template-areas:
+        ". headshot ."
+        "homeImage aboutMe1 aboutMe1"
+        "aboutMe2 aboutMe2 schoolImage"
+        "musicImage aboutMe3 aboutMe3"
+        "aboutMe4 aboutMe4 rugbyImage";
+
+}
+.headshot {
+    grid-area: headshot;
+}
+.homeImage { }
