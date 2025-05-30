@@ -25,4 +25,9 @@
         ")->fetch();
         return $project;
     }
-    // getProject()
+
+    function insertProject($projectName, $projectOrganization, $dateCreated, $projectCreators, $shortDescription, $longDescription) { //, $image
+        dbQuery("
+        INSERT INTO projects (title, organization, dateCreated, shortDescription, creators, longDescription, image) VALUES ('$projectName','$projectOrganization','$dateCreated','$shortDescription','$projectCreators','$longDescription','placeholder')
+        ");
+    }

@@ -26,6 +26,11 @@ foreach ($allProjects as $project) {
                 ";
 }
 echo "</div>";
+echo "
+<div class='finalText'>
+<a href='addAProject.php'>add a project?</a>
+</div>
+";
 echo "</body>";
 echo "</html>";
 //    } else {

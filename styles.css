@@ -301,7 +301,7 @@ h2 > a {
 
 .aboutMeGrid { /* items MUST have the grid-area: "name" tag!!! */
     display: grid;
-    grid-template-rows: auto;
+    grid-template-rows: auto 400px 350px 320px 800px;
     grid-template-columns: 1fr 50% 1fr;
     grid-template-areas:
         ". headshot ."
@@ -309,9 +309,62 @@ h2 > a {
         "aboutMe2 aboutMe2 schoolImage"
         "musicImage aboutMe3 aboutMe3"
         "aboutMe4 aboutMe4 rugbyImage";
+ 
+    justify-items: center;
+    gap: 40px;
 
 }
 .headshot {
     grid-area: headshot;
 }
-.homeImage { }
+.homeImage { 
+    grid-area: homeImage;
+    aspect-ratio: 1600/1056;
+}
+.schoolImage {
+    grid-area: schoolImage;
+}
+.musicImage {
+    grid-area: musicImage;
+}
+.rugbyImage {
+    grid-area: rugbyImage;
+}
+.aboutMe1 { grid-area: aboutMe1; }
+.aboutMe2 { 
+    grid-area: aboutMe2; 
+    text-align: right;
+}
+.aboutMe3 { 
+    grid-area: aboutMe3;
+    
+}
+.aboutMe4 { 
+    grid-area: aboutMe4;
+    text-align: right;
+ }
+ .homeImage, .schoolImage, .musicImage, .rugbyImage, .headshot {
+    border-style: solid;
+    border-color: #4F5D75;
+    border-width: 20px;
+    border-radius: 30px;
+    /* place-self: start; */
+    justify-self: stretch;
+    align-self: stretch;
+    overflow: hidden;
+    
+
+ }
+ .aboutMe1, .aboutMe2, .aboutMe3, .aboutMe4 {
+    border-style: hidden;
+    border-radius: 10px; 
+    background-color: #4F5D75;
+    font-size: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+ }
+ .headshot {
+    max-width: 50%;
+    height: auto;
+    justify-self: center;
+ }
