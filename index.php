@@ -1,15 +1,28 @@
 <!DOCTYPE html>
+<html>
+<?php
+include("include/init.php");
+
+// $posts = getPosts();
+// var_dump($posts);
+echoHeader("ZACKARIA");
+?>
 <!-- for 5/27: 
     how can we make it so that the sticky images stop sticking whenever we hit the final text?
         try using a wrapper to see images are taking up a certain percentage of the screen and cropping the bottom off if so
     make it so that hovering over any of the images makes them opaque with text and clicking them sends you to another website
     make the colors and fonts prettier, as well as experiment with the border radius and the colors of the background and size of padding to create a really modern looking website
     finish the about me page, using this page as a template.  -->
-<head>
+<!-- make the get all posts function
+    make the get posts function 
+    populate the practice posts array with all the stuff that you have on ur page
+    add the linkes in your url or wtv-->
+
+<!-- <head>
     <meta charset="utf-8" name="viewport" content="width=device-width">
     <title>ZACKARIA</title>
     <link rel="icon" type="image/x-icon" href="Photo on 5-22-25 at 9.51 AM.jpg">
-    <!-- figure out how to change the font :D -->
+=
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -21,56 +34,47 @@
             </div>
         <a href="https://github.com/zackshoki" target="_blank" class="supportingLink">past projects</a> 
         
+    </div> -->
+
+<div class="siteGridContainer">
+    <div class="imgWrapper img1">
+        <a href="https://www.instagram.com/zackshoki" target="_blank">
+        <!-- picture --> <img src="IMG_68.jpg" style="position:relative;width:100%;height:100%;"> <div class="textUnderImage">this is under the image</div>
+        </a>
     </div>
-    <div class="siteGridContainer">
-        <div class="imgWrapper img1">
-            <!-- picture --> <img src="IMG_68.jpg">
-        </div>
-        <div class="imgWrapper img2">
-            <!-- picture --> <img src="IMG_3893.jpeg">
-        </div>
-        <div class="imgWrapper img3">
-            <!-- picture --> <img src="IMG_0057.jpeg">
-        </div>
-        <div class="introParagraph">
-            <p>
-            Hey, I’m Zack — welcome to my digital space.
-            This site is part portfolio, part personal journal, and part invitation. I'm a student, software developer, and community advocate with a passion for using tech to solve problems that matter — whether that’s helping people connect more deeply, play more freely, or challenge injustice more boldly.
-
-            I’m currently a freshman in college, but I’ve been building things — both in code and in community — for a while now. Some of those things look like games and apps; others look like systems of support, acts of resistance, and spaces for real conversations. I believe technology isn’t just about what we build — it’s also about why we build it, who we build it for, and how we show up along the way.
-
-            In high school, I helped lead efforts to address racism, sexism, and homophobia between students and teachers. I worked directly with administrators to co-create anti-discrimination training, making space for student voices to influence real policy. That experience taught me that advocacy and innovation aren’t separate paths — they feed each other. I bring that mindset into my code, my collaborations, and the way I move through the world.
-
-            On the tech side, I love experimenting with emerging tools and interfaces. I’ve built a gesture-controlled video game using Google’s Mediapipe and OpenCV, where finger movements through space act as game input. That project came together in a 36-hour sprint with a team of four, and I took the lead on task delegation, implementation, and final presentation to a panel of judges. I’ve also worked on speech-to-text functionality for React Native apps using @react-native-voice/voice, and I’ve used MATLAB for epidemiological modeling to analyze COVID-19 trends in St. Louis during the Delta and Omicron phases. Whether it’s mobile development, data analysis, or interactive media, I’m all about learning fast, building intentionally, and staying curious.
-
-            Right now, I’m working toward personal growth on every level — physically (cutting down and leaning out while building strength), mentally (learning new languages, frameworks, and systems), and socially (connecting with people who care about tech, equity, and creativity). I’m also preparing for an upcoming trip to Tanzania, where I hope to learn and contribute in meaningful ways beyond the classroom or IDE.
-
-            This site is a place to keep track of the journey — and to invite folks like you along for the ride.
-
-            👉 Check out my About Me page to learn more about my background, values, and goals.
-            👉 Explore my Past Projects to see what I’ve built and what I’m experimenting with now.
-
-            Thanks for being here. If anything resonates, I’d love to connect — feel free to reach out.
-            </p>
-        </div>
-        <div class="text2">
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum           </p>
-            
-        </div>
-        <div class="text3">
-            <p>
-            now i spend my time as an LACRM coding fellow, with the cool people that you can see below! Currently, I am working on this website, but after this, the project will shift to be something new. I am excited to showcase my skills to the world!. 
-            </p>
-        </div>
-        <div class="finalText">
-            <p>thank you for reading!</p>
-        </div>
-       
+    <div class="imgWrapper img2">
+    <a href="https://www.linkedin.com/in/wzshoki" target="_blank">
+        <!-- picture --> <img src="IMG_3893.jpeg" style="position:relative;width:100%;height:100%;">
+    </a>
     </div>
-    
-    <!-- <span>
+    <div class="imgWrapper img3">
+    <a href="https://www.lessannoyingcrm.com/" target="_blank">
+        <!-- picture --> <img src="IMG_0057.jpeg" style="position:relative;width:100%;height:100%;">
+</a>
+    </div>
+    <div class="introParagraph">
+        <p>
+           Hello! My name is William Zackaria Shoki, and I am a rising sophomore studying Computer Engineering and Cognitive Neuroscience at <a href="https://www.washu.edu" target="_blank">Washington University in St. Louis.</a> I made this website as a sort of hub for you to learn everything there is to know about me. You'll find some more interesting information about me using the link in the top-left corner of your screen, while you can find out about the projects I have been a part of in the past at the link in the top right. 
+        </p>
+    </div>
+    <div class="text2" style="font-size:4.5vw">
+        <p>You can hover over each of the images to see where clicking them will take you, or you can just continue to admire the beauty of the website that I made. </p>
+           
+    </div>
+    <div class="text3" style="font-size:2.9vw">
+        <p>
+            Right now, I am working as a coding fellow for Less Annoying CRM, where I collaborate with the wonderful people pictured below and where I created this website! Check them out by clicking the image. 
+        </p>
+    </div>
+    <div class="separator">
+    </div>
+    <div class="finalText">
+        <p>thank you for reading!</p>
+    </div>
+
+</div>
+
+<!-- <span>
         <img src="https://em-content.zobj.net/source/apple/232/otter_1f9a6.png" alt="the otter emoji"
             class="otterImage">
     </span>
@@ -78,7 +82,7 @@
         <img src="https://em-content.zobj.net/source/apple/232/otter_1f9a6.png" alt="the otter emoji"
             class="mirroredOtterImage">
     </span> -->
-    <!-- <div>
+<!-- <div>
         <img class="hangingFrame">
         
         <div>
@@ -95,3 +99,4 @@
             </div>  
     </div>-->
 </body>
+</html>
