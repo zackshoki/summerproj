@@ -16,14 +16,21 @@ echoHeader('Add A Project');
 <div class="pageTitle">
     add a project</div>
 <div>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data" class="projectForm" style="margin:auto;"  class="projectContainer">
+        <p style = "text-align:center;">project name</p>
         <input type="text" name="projectName">
+        <p  style = "text-align:center;">date created</p>
         <input type="datetime" name="dateCreated">
+        <p  style = "text-align:center;">organization</p>
         <input type="text" name="projectOrganization">
+        <p  style = "text-align:center;">creators</p>
         <input type="text" name="projectCreators">
+        <p  style = "text-align:center;">short description</p>
         <input type="text" name="shortDescription">
+        <p style = "text-align:center;">long description</p>
         <input type="text" name="longDescription">
+        <p style = "text-align:center;">image</p>
         <input type="file" name="image">
         <input type="submit">
     </form>
-</div> 
+ </div>

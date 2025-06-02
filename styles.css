@@ -373,3 +373,66 @@ h2 > a {
     width: 100%;
     
  }
+ .projectForm {
+    background-color: #4F5D75;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 600px;
+    margin: 40px auto;
+    box-shadow: 0 0 15px black;
+    color: #DED6D1;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+  }
+  
+  .projectForm label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #DED6D1;
+  }
+  
+  .projectForm input,
+  .projectForm textarea {
+    width: 95%;
+    padding: 10px 15px;
+    margin: auto;
+    align-self: center;
+    justify-self: center;
+    position:relative;
+    margin-bottom: 20px;
+    border: 2px solid #6d809f;
+    border-radius: 10px;
+    background-color: #2D3142;
+    color: #DED6D1;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .projectForm input:focus,
+  .projectForm textarea:focus {
+    border-color: #D4C5E2;
+    outline: none;
+    box-shadow: 0 0 8px #D4C5E2;
+  }
+  
+  .projectForm button {
+    background-color: #6d809f;
+    color: #D4C5E2;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, filter 0.3s ease;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+  }
+  
+  .projectForm button:hover {
+    filter: brightness(1.2);
+    background-color: #607394;
+  }
