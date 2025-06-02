@@ -4,7 +4,6 @@ include('include/helper_functions.php');
 echoHeader('Add A Project');
 
     // debugOutput($comments);
-    debugOutput($_REQUEST);
     if (isset($_REQUEST['projectName']) && isset($_REQUEST['projectOrganization'])&& isset($_REQUEST['projectCreators'])&& isset($_REQUEST['shortDescription'])&& isset($_REQUEST['longDescription'])&& isset($_REQUEST['dateCreated'])){ //isset($_REQUEST['image']) && i
         insertProject($_REQUEST['projectName'], $_REQUEST['projectOrganization'], $_REQUEST['dateCreated'], $_REQUEST['shortDescription'], $_REQUEST['projectCreators'], $_REQUEST['longDescription']); //, $_REQUEST['image']
         header("Location: addAProject.php");

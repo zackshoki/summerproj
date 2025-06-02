@@ -301,7 +301,7 @@ h2 > a {
 
 .aboutMeGrid { /* items MUST have the grid-area: "name" tag!!! */
     display: grid;
-    grid-template-rows: auto 400px 350px 320px 800px;
+    grid-template-rows: auto 250px 250px 230px 500px;
     grid-template-columns: 1fr 50% 1fr;
     grid-template-areas:
         ". headshot ."
@@ -367,4 +367,9 @@ h2 > a {
     max-width: 50%;
     height: auto;
     justify-self: center;
+ }
+ 
+ input {
+    width: 100%;
+    
  }
