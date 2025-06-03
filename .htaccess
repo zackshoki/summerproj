@@ -1,4 +1,4 @@
-<filesMatch "\.(html|js|css|php)$">
+<filesMatch "\.git (html|js|css|php)$">
   FileETag None
   <ifModule mod_headers.c>
     Header unset ETag
