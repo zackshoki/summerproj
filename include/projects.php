@@ -26,8 +26,8 @@
         return $project;
     }
 
-    function insertProject($projectName, $projectOrganization, $dateCreated, $projectCreators, $shortDescription, $longDescription) { //, $image
+    function insertProject($projectName, $projectOrganization, $dateCreated, $projectCreators, $shortDescription, $longDescription, $image) { //, $image
         dbQuery("
-        INSERT INTO projects (title, organization, dateCreated, shortDescription, creators, longDescription, image) VALUES ('$projectName','$projectOrganization','$dateCreated','$shortDescription','$projectCreators','$longDescription','placeholder')
+        INSERT INTO projects (title, organization, dateCreated, shortDescription, creators, longDescription, image) VALUES ('$projectName','$projectOrganization','$dateCreated','$shortDescription','$projectCreators','$longDescription','$image')
         ");
     }

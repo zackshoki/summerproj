@@ -3,16 +3,22 @@ include('include/init.php');
 include('include/helper_functions.php');
 echoHeader('Add A Project');
 
+
+
     // debugOutput($comments);
     if (isset($_REQUEST['projectName']) && isset($_REQUEST['projectOrganization'])&& isset($_REQUEST['projectCreators'])&& isset($_REQUEST['shortDescription'])&& isset($_REQUEST['longDescription'])&& isset($_REQUEST['dateCreated'])){ //isset($_REQUEST['image']) && i
-        insertProject($_REQUEST['projectName'], $_REQUEST['projectOrganization'], $_REQUEST['dateCreated'], $_REQUEST['shortDescription'], $_REQUEST['projectCreators'], $_REQUEST['longDescription']); //, $_REQUEST['image']
+        insertProject($_REQUEST['projectName'], $_REQUEST['projectOrganization'], $_REQUEST['dateCreated'], $_REQUEST['shortDescription'], $_REQUEST['projectCreators'], $_REQUEST['longDescription'], $target_file); //, $_REQUEST['image']
+        $target_file = basename($_FILES["image"]["name"]);
+        move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
         header("Location: addAProject.php");
         exit;
         // add a form
         // make it aesthetic
         // add validation
     } 
+    
 ?> 
+
 <div class="pageTitle">
     add a project</div>
 <div>

@@ -39,41 +39,68 @@ echoHeader("ZACKARIA");
 <div class="siteGridContainer">
     <div class="imgWrapper img1">
         <a href="https://www.instagram.com/zackshoki" target="_blank">
-        <!-- picture --> <img src="IMG_68.jpg" style="position:relative;width:100%;height:100%;"> <div class="textUnderImage">this is under the image</div>
+            <!-- picture --> <img src="IMG_68.jpg" style="position:relative;width:100%;height:100%;">
+            <div class="textUnderImage">this is under the image</div>
         </a>
     </div>
     <div class="imgWrapper img2">
-    <a href="https://www.linkedin.com/in/wzshoki" target="_blank">
-        <!-- picture --> <img src="IMG_3893.jpeg" style="position:relative;width:100%;height:100%;">
-    </a>
+        <a href="https://www.linkedin.com/in/wzshoki" target="_blank">
+            <!-- picture --> <img src="IMG_3893.jpeg" style="position:relative;width:100%;height:100%;">
+        </a>
     </div>
     <div class="imgWrapper img3">
-    <a href="https://www.lessannoyingcrm.com/" target="_blank">
-        <!-- picture --> <img src="IMG_0057.jpeg" style="position:relative;width:100%;height:100%;">
-</a>
+        <a href="https://www.lessannoyingcrm.com/" target="_blank">
+            <!-- picture --> <img src="IMG_0057.jpeg" style="position:relative;width:100%;height:100%;">
+        </a>
     </div>
     <div class="introParagraph">
         <p>
-           Hello! My name is William Zackaria Shoki, and I am a rising sophomore studying Computer Engineering and Cognitive Neuroscience at <a href="https://www.washu.edu" target="_blank">Washington University in St. Louis.</a> I made this website as a sort of hub for you to learn everything there is to know about me. You'll find some more interesting information about me using the link in the top-left corner of your screen, while you can find out about the projects I have been a part of in the past at the link in the top right. 
+            Hello! My name is William Zackaria Shoki, and I am a rising sophomore studying Computer Engineering and Cognitive Neuroscience at <a href="https://www.washu.edu" target="_blank">Washington University in St. Louis.</a> I made this website as a sort of hub for you to learn everything there is to know about me. You'll find some more interesting information about me using the link in the top-left corner of your screen, while you can find out about the projects I have been a part of in the past at the link in the top right.
         </p>
     </div>
     <div class="text2" style="font-size:4.5vw">
         <p>You can hover over each of the images to see where clicking them will take you, or you can just continue to admire the beauty of the website that I made. </p>
-           
+
     </div>
     <div class="text3" style="font-size:2.9vw">
         <p>
-            Right now, I am working as a coding fellow for Less Annoying CRM, where I collaborate with the wonderful people pictured below and where I created this website! Check them out by clicking the image. 
+            Right now, I am working as a coding fellow for Less Annoying CRM, where I collaborate with the wonderful people pictured below and where I created this website! Check them out by clicking the image.
         </p>
     </div>
     <div class="separator">
     </div>
-    <div class="finalText">
+    <div class="finalText" id="button">
         <p>thank you for reading!</p>
     </div>
 
 </div>
+<script type="text/javascript" src="confetti.min.js">
 
+</script>
+<script>
+    let confetti = new Confetti('button');
+    confetti.setCount(100);
+    confetti.setSize(5);
+    confetti.setPower(150);
+    confetti.setFade(false);
+    confetti.destroyTarget(true);
+    // window.addEventListener('scroll', () => {
+    //     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+    //         console.log("hit bottom");
+    //         document.getElementById("button").click();
+    //     }
+    // })
+    // function removeButton(t) {
+    //         (t.target.style.opacity = 0),
+    //           setTimeout(() => {
+    //             (t.target.style.visibility = ""), (t.target.style.opacity = 1);
+    //           }, 5e3);
+    //       }
+</script>
+<script type="text/javascript">
+    const pageHeight = document.body.scrollHeight;
+    console.log(pageHeight);
+</script>
 <!-- <span>
         <img src="https://em-content.zobj.net/source/apple/232/otter_1f9a6.png" alt="the otter emoji"
             class="otterImage">
@@ -99,4 +126,5 @@ echoHeader("ZACKARIA");
             </div>  
     </div>-->
 </body>
+
 </html>
