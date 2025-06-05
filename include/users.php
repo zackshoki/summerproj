@@ -3,16 +3,17 @@
     function getAllUsers() {
         $users = dbQuery("
             SELECT *
-            FROM users
+            FROM users 
         ")->fetchAll();
-        return $users;
+        return $users; // must make sure that archived users are not retrieved
     }
     
+    // must make sure that archived users are not retrieved
     function getUser($userId) {
         $user = dbQuery("
             SELECT *
             FROM users
-            WHERE userId = $userId
+            WHERE userId = $userId 
         ")->fetch();
         return $user;
     }
