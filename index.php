@@ -1,8 +1,6 @@
 <?php 
     include('include/init.php');
-
     $allUsers = getAllUsers();
-
 ?>
 
 <html>
@@ -13,6 +11,6 @@
         <script type="text/javascript" src="scripts/main.js"></script>
     </head>
     <body>
-        <?php debugOutput($allUsers); ?>
+        <?php debugOutput($allUsers); hello world ?>
     </body>
 </html>
