@@ -14,6 +14,7 @@ function getAllProjects()
     $projects = dbQuery("
             SELECT *
             FROM projects
+            WHERE dateArchived IS NULL
         ")->fetchAll();
     return $projects;
 }
@@ -24,6 +25,7 @@ function getProject($projectId)
             SELECT *
             FROM projects
             WHERE projectId = $projectId
+            AND dateArchived IS NULL
         ")->fetch();
     return $project;
 }
@@ -35,3 +37,12 @@ function insertProject($projectName, $projectOrganization, $dateCreated, $projec
         ");
 }
 
+function deleteProject($projectId)
+{
+    dbQuery("
+            UPDATE projects
+            SET dateArchived = NOW()
+            WHERE projectId = $projectId
+        ");
+    
+}

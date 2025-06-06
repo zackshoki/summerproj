@@ -11,7 +11,7 @@ include("include/helper_functions.php");
     <meta charset="utf-8" name="viewport" content="width=device-width">
     <title>past projects</title>
     <link rel="icon" type="image/x-icon" href="Photo on 5-22-25 at 9.51 AM.jpg">
-    <script type='text/javascript'>
+    <script defer type='text/javascript'>
         function printProjects() {
             fetch('projectFormatting.php').then(
                 response => (
@@ -22,6 +22,17 @@ include("include/helper_functions.php");
                 )
             )
         }
+
+        function deleteProject($projectId) {
+            fetch("deleteAProject.php", {
+                method: "POST",
+                body: $projectId,
+            }).then(
+            printProjects(),
+            printProjects()
+        );
+        }
+        printProjects();
     </script>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,7 +57,8 @@ include("include/helper_functions.php");
    <div class="pageTitle">
     projects
    </div>
-   <div class="projectContainer" id="projectContainer" ">';
+   <div class="projectContainer" id="projectContainer">
+   ';
 
     echo "</div>";
     echo "
