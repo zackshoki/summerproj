@@ -13,7 +13,7 @@
     <body>
         <div id="thing">
         <?php
-            $thing = getToken(); 
+            spotifyCurlRequest(getToken());
         ?> 
         </div>
     </body>

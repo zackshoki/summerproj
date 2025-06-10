@@ -10,6 +10,7 @@ function getToken()
 
     $curl_options = [
         CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => TRUE,
         CURLOPT_POST => TRUE,
         CURLOPT_HTTPHEADER => [
             'Content-Type: application/x-www-form-urlencoded'
@@ -18,7 +19,8 @@ function getToken()
     ];
     curl_setopt_array($spotify_token_curl, $curl_options);
     $recieved_data = curl_exec($spotify_token_curl);
-
-    echo $recieved_data;
+    $token_array = json_decode($recieved_data, true);
+    $token = $token_array['access_token'];
+    echo $token;
 }
 ?>
