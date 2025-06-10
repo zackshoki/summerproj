@@ -12,9 +12,14 @@
     </head>
     <body>
         <div id="thing">
+        <h1>
         <?php
-            spotifyCurlRequest(getToken());
+            $token = getToken();
+            $json_data = spotifyCurlRequest($token, "https://api.spotify.com/v1/artists/6vWDO969PvNqNYHIOW5v0m?si=UQO5ex8yS-WnjRHjV3R9Aw");
+            $data = json_decode($json_data, TRUE);
+            echo $data['name'];
         ?> 
+        </h1>
         </div>
     </body>
 </html>

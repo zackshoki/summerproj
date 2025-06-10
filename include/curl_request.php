@@ -1,10 +1,18 @@
 <?php
-function spotifyCurlRequest($token)
+function spotifyCurlRequest($token, $url)
 {
-    $url = "https://api.spotify.com/v1/artists/6vWDO969PvNqNYHIOW5v0m%3Fsi%3DSg61XqNlQX6vdD2e9ofc2g";
     $spotify_curl = curl_init();
 
-    curl_setopt($spotify_curl, CURLOPT_URL, $url);
-    curl_setopt($spotify_curl, CURLOPT_RETURNTRANSFER, TRUE);
-    curl_setopt($spotify_curl, CURLOPT_HEADER, 'blah blah');
+    $spotify_curl_options = [
+        CURLOPT_URL => $url, 
+        CURLOPT_RETURNTRANSFER => TRUE, 
+        CURLOPT_HTTPHEADER => [
+            'Authorization: Bearer '.$token
+        ]
+    ];
+
+    curl_setopt_array($spotify_curl, $spotify_curl_options);
+    $data = curl_exec($spotify_curl);
+    return $data;
 }
+?>

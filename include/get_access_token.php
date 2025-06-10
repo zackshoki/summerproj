@@ -21,6 +21,6 @@ function getToken()
     $recieved_data = curl_exec($spotify_token_curl);
     $token_array = json_decode($recieved_data, true);
     $token = $token_array['access_token'];
-    echo $token;
+    return $token;
 }
 ?>
