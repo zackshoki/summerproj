@@ -11,6 +11,10 @@
         <script defer type="text/javascript" src="scripts/main.js"></script>
     </head>
     <body>
-        <div id="thing">hello</div>
+        <div id="thing">
+        <?php
+            $thing = getToken(); 
+        ?> 
+        </div>
     </body>
 </html>
