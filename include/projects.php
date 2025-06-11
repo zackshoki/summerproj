@@ -46,3 +46,11 @@ function deleteProject($projectId)
         ");
     
 }
+
+function validateUser($email, $password) {
+    // return true if theres a match
+    $user = dbQuery("
+        SELECT userId, username, password FROM users WHERE username = '$email' AND password = '$password'
+    ")->fetch();
+    return $user;
+}

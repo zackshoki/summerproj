@@ -9,3 +9,5 @@
     include('db_query.php');
     include('common_components.php');
     include('projects.php');
+    include('helper_functions.php');
+    
