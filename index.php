@@ -22,6 +22,7 @@ $allUsers = getAllUsers();
             // echo $data['name'];
 
             requestUserAuthorization();
+            requestAccessToken($_GET['code'], $_GET['state']);
             ?>
         </h1>
     </div>
