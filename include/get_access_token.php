@@ -57,14 +57,17 @@ function requestAccessToken($code, $givenState) {
         CURLOPT_RETURNTRANSFER => TRUE,
         CURLOPT_POST => TRUE,
         CURLOPT_HTTPHEADER => [
-            "Content-Type: application/x-www-form-urlencoded",
-            "Authorization: Basic $client_id:$client_secret"
+            "content-type: application/x-www-form-urlencoded",
+            "Authorization: Basic ".base64_encode($client_id.":".$client_secret)
         ],
         CURLOPT_POSTFIELDS => $postBody
     ];
     curl_setopt_array($requestAccessTokenCurl, $curl_options);
     $data = curl_exec($requestAccessTokenCurl);
-    var_dump($data);
+    $formatted_data = json_decode($data, true);
+    $token = $formatted_data['access_token'];
+    setcookie("spotify_token", $token, time() + $formatted_data['expires_in'], "/", "", true, true); // update the false to true once we have https instead of http
+    return $token;
 
 }
 ?>
