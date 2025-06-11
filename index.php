@@ -27,11 +27,8 @@ if (!isset($_COOKIE['spotify_token'])) {
         <h1>
             your top artists are: 
             <?php
-            // $token = getToken();
-            // $json_data = spotifyCurlRequest($token, "https://api.spotify.com/v1/artists/6vWDO969PvNqNYHIOW5v0m?si=UQO5ex8yS-WnjRHjV3R9Aw");
-            // $data = json_decode($json_data, TRUE);
-            // echo $data['name'];
-
+            // spotifyGetRequest($token, "https://api.spotify.com/v1/me/top/artists", "type='artists'");
+            
             
             
             ?>
