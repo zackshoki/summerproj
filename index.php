@@ -3,9 +3,10 @@ include('include/init.php');
 $allUsers = getAllUsers();
 if (!isset($_COOKIE['spotify_token'])) {
     if (isset($_REQUEST['code']) && isset($_REQUEST['state'])) {
+        
         $token = requestAccessToken($_REQUEST['code'], $_REQUEST['state']); 
     } else {
-        header('login.php'); // work on refresh tokens in the future. 
+        header('Location: login.php'); // work on refresh tokens in the future. 
     }
     
 } else {
@@ -24,10 +25,15 @@ if (!isset($_COOKIE['spotify_token'])) {
 
 <body>
     <div id="thing">
-        <h1>
+        <h1 style="font-size:300px">
             your top artists are: 
             <?php
-            // spotifyGetRequest($token, "https://api.spotify.com/v1/me/top/artists", "type='artists'");
+            $data = spotifyGetRequest($token, "https://api.spotify.com/v1/me/top/artists", "type='artists'")['items'];
+            foreach ($data as $artist) {
+            echo $artist['name'];
+            echo "<br>";
+            }
+            
             
             
             

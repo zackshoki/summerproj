@@ -53,7 +53,7 @@ function requestAccessToken($code, $givenState) {
     $postBody = "grant_type=authorization_code&code=$code&redirect_uri=$redirect_uri";
 
     $curl_options = [
-        CURLOPT_URL => $url,
+        CURLOPT_URL => $url.$postBody,
         CURLOPT_RETURNTRANSFER => TRUE,
         CURLOPT_POST => TRUE,
         CURLOPT_HTTPHEADER => [
@@ -64,10 +64,15 @@ function requestAccessToken($code, $givenState) {
     ];
     curl_setopt_array($requestAccessTokenCurl, $curl_options);
     $data = curl_exec($requestAccessTokenCurl);
+    
     $formatted_data = json_decode($data, true);
-    $token = $formatted_data['access_token'];
-    setcookie("spotify_token", $token, time() + $formatted_data['expires_in'], "/", "", true, true); // update the false to true once we have https instead of http
-    return $token;
+    if (!isset($formatted_data['error'])) {
+        $token = $formatted_data['access_token'];
+        setcookie("spotify_token", $token, time() + $formatted_data['expires_in'], "/", "", true, true); // update the false to true once we have https instead of http
+        return $token;
+    } else {
+        header("Location: login.php");
+    }
 
 }
 ?>
