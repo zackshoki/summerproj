@@ -20,26 +20,19 @@ if (!isset($_COOKIE['spotify_token'])) {
     <meta charset="utf-8" name="viewport" content="width=device-width">
     <title>summ3erproj</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <script defer type="text/javascript" src="scripts/main.js"></script>
+    <script defer type="text/javascript" src="scripts/main.js">
+        populateUI(fetchProfile(<?php echo $token ?>));
+    </script>
 </head>
 
 <body>
-    <div id="thing">
-        <h1 style="font-size:300px">
-            your top artists are: 
-            <?php
-            $data = spotifyGetRequest($token, "https://api.spotify.com/v1/me/top/artists", "type='artists'")['items'];
-            foreach ($data as $artist) {
-            echo $artist['name'];
-            echo "<br>";
-            }
-            
-            
-            
-            
-            ?>
-        </h1>
-    </div>
+    <div id="avatar"></div>
+    <div id="displayName"></div>
+    <div id="imgUrl"></div>
+    <div id="id"></div>
+    <div id="email"></div>
+    <div id="uri"></div>
+    <div id="url"></div>
 </body>
 
 </html>
