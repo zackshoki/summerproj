@@ -40,6 +40,7 @@ function isrcToMBID($isrc) { // isrc is a universally identifying code for a spe
     $data = json_decode($data_json, true); 
     $mbid = $data['recordings'][0]['id'];
     echo $data['recordings'][0]['title'];
+
     return $mbid;
 }
 function fetchTrackData($mbids) {
@@ -47,7 +48,7 @@ function fetchTrackData($mbids) {
     $curl = curl_init(); 
 
     $curl_options = [
-        CURLOPT_URL => $acousticURL."high-level?map_classes='true'&recording_ids=".$mbids,
+        CURLOPT_URL => $acousticURL."low-level?map_classes='false'&recording_ids=".$mbids,
         CURLOPT_HTTPHEADER => [
             'User-Agent: Sprintify/1.0 ( zackshoki@gmail.com )',
             'Accept: application/json'
@@ -57,6 +58,7 @@ function fetchTrackData($mbids) {
     ];
     curl_setopt_array($curl, $curl_options);
     $data_json = curl_exec($curl);
+ 
     $data = json_decode($data_json, true);
 
     return $data;

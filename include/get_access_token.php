@@ -63,8 +63,7 @@ function requestAccessToken($code, $givenState) {
         CURLOPT_POSTFIELDS => $postBody
     ];
     curl_setopt_array($requestAccessTokenCurl, $curl_options);
-   $data = curl_exec($requestAccessTokenCurl);
-    var_dump($data);
+    $data = curl_exec($requestAccessTokenCurl);
     $formatted_data = json_decode($data, true);
     if (!isset($formatted_data['error'])) {
         $token = $formatted_data['access_token'];
