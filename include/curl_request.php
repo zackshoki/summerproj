@@ -30,32 +30,33 @@ function isrcToMBID($isrc) { // isrc is a universally identifying code for a spe
     $curl_options = [
         CURLOPT_URL => $musicURL."isrc/$isrc",
         CURLOPT_HTTPHEADER => [
-            'Content-Type: application/json',
-            'User-Agent: Sprintify/1.0 ( zackshoki@gmail.com )'
+            'User-Agent: Sprintify/1.0 ( zackshoki@gmail.com )',
+            'Accept: application/json'
         ],
-        CURLOPT_CUSTOMREQUEST => "GET",
         CURLOPT_RETURNTRANSFER => TRUE
     ];
     curl_setopt_array($curl, $curl_options);
-    $mbid =  curl_exec($curl);
-    echo $mbid; //this is not an mbid. what is it?
-    // return $mbid;
+    $data_json = curl_exec($curl);
+    $data = json_decode($data_json, true); 
+    $mbid = $data['recordings'][0]['id'];
+    echo $data['recordings'][0]['title'];
+    return $mbid;
 }
 function fetchTrackData($mbids) {
     global $acousticURL;
     $curl = curl_init(); 
 
     $curl_options = [
-        CURLOPT_URL => $acousticURL."low-level?map_classes='true'&recording_ids=".$mbids,
+        CURLOPT_URL => $acousticURL."high-level?map_classes='true'&recording_ids=".$mbids,
         CURLOPT_HTTPHEADER => [
-            'Content-Type: application/json'
+            'User-Agent: Sprintify/1.0 ( zackshoki@gmail.com )',
+            'Accept: application/json'
         ],
         CURLOPT_CUSTOMREQUEST => "GET",
         CURLOPT_RETURNTRANSFER => TRUE
     ];
     curl_setopt_array($curl, $curl_options);
     $data_json = curl_exec($curl);
-    echo $data_json;
     $data = json_decode($data_json, true);
 
     return $data;
