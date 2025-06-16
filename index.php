@@ -3,7 +3,6 @@ include('include/init.php');
 $allUsers = getAllUsers();
 if (!isset($_COOKIE['spotify_token'])) {
     if (isset($_REQUEST['code']) && isset($_REQUEST['state'])) {
-        
         $token = requestAccessToken($_REQUEST['code'], $_REQUEST['state']); 
     } else {
         header('Location: login.php'); // work on refresh tokens in the future. 
@@ -20,9 +19,7 @@ if (!isset($_COOKIE['spotify_token'])) {
     <meta charset="utf-8" name="viewport" content="width=device-width">
     <title>summ3erproj</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <script defer type="text/javascript" src="scripts/main.js">
-        populateUI(fetchProfile(<?php echo $token ?>));
-    </script>
+    <script type="text/javascript" src="scripts/main.js"></script>
 </head>
 
 <body>
@@ -33,6 +30,15 @@ if (!isset($_COOKIE['spotify_token'])) {
     <div id="email"></div>
     <div id="uri"></div>
     <div id="url"></div>
+   <script>
+    token = "<?php echo $token ?>";
+    fetchProfile(token).then((profile) => {
+        thing = profile;
+        populateUI(profile);
+    });
+
+    
+   </script>
 </body>
 
 </html>
