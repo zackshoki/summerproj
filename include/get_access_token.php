@@ -1,5 +1,5 @@
 <?php
-$state = bin2hex(random_bytes(16 / 2)); // random string 16 digits long
+
 $redirect_uri = 'http://[::1]:8888/index.php';
 
 $client_id = 'e222be8a405045a79868de716b5aef44';   // look down
@@ -47,8 +47,9 @@ function requestAccessToken($code, $givenState) {
     global $state, $redirect_uri, $client_id, $client_secret; 
     if ($state != $givenState) {
         // ref do something! error restart
-    }
-    $url = "https://accounts.spotify.com/api/token";
+        echo "ERROR state does not match given state";
+    } else {
+    $url = "https://accounts.spotify.com/api/token?";
     $requestAccessTokenCurl = curl_init(); 
     $postBody = "grant_type=authorization_code&code=$code&redirect_uri=$redirect_uri";
 
@@ -60,7 +61,7 @@ function requestAccessToken($code, $givenState) {
             "content-type: application/x-www-form-urlencoded",
             "Authorization: Basic ".base64_encode($client_id.":".$client_secret)
         ],
-        CURLOPT_POSTFIELDS => $postBody
+        // CURLOPT_POSTFIELDS => $postBody this was making everything tweak i think
     ];
     curl_setopt_array($requestAccessTokenCurl, $curl_options);
     $data = curl_exec($requestAccessTokenCurl);
@@ -72,6 +73,6 @@ function requestAccessToken($code, $givenState) {
     } else {
         header("Location: login.php");
     }
-
+}
 }
 ?>
