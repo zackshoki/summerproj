@@ -1,4 +1,5 @@
 <?php
+
 function spotifyGetRequest($token, $url, $formatted_fields)
 {
     $spotify_curl = curl_init();
@@ -19,38 +20,36 @@ function spotifyGetRequest($token, $url, $formatted_fields)
     return $data; 
     
 }
-// acoustic brains/music brainz
-$musicURL = 'https://musicbrainz.org/ws/2/';
-$acousticURL = 'https://acousticbrainz.org/api/v1/';
+// reccobeats
+$reccoURL = 'https://api.reccobeats.com/v1/';
 
-function isrcToMBID($isrc) { // isrc is a universally identifying code for a specific song recording, mbid is this-api specific idenifying code for the same recording
-    global $musicURL; 
+function spotifyIdsToReccoIds($spotify_ids) { // isrc is a universally identifying code for a specific song recording, mbid is this-api specific idenifying code for the same recording
+    global $reccoURL; // currently, this funciton only works with one id, but we need to tweak it to make it work with many
     $curl = curl_init(); 
 
     $curl_options = [
-        CURLOPT_URL => $musicURL."isrc/$isrc",
+        CURLOPT_URL => $reccoURL."track?ids=".$spotify_ids,
         CURLOPT_HTTPHEADER => [
-            'User-Agent: Sprintify/1.0 ( zackshoki@gmail.com )',
             'Accept: application/json'
         ],
-        CURLOPT_RETURNTRANSFER => TRUE
+        CURLOPT_RETURNTRANSFER => TRUE,
+        
     ];
     curl_setopt_array($curl, $curl_options);
     $data_json = curl_exec($curl);
     $data = json_decode($data_json, true); 
-    $mbid = $data['recordings'][0]['id'];
-    echo $data['recordings'][0]['title'];
+    debugOutput($data);
+    $reccoId = $data['content'][0]['id'];
 
-    return $mbid;
+    return $reccoId;
 }
-function fetchTrackData($mbids) {
-    global $acousticURL;
+function fetchTrackData($reccoIds) { // this only works for one rn, but may use a loop to get many
+    global $reccoURL;
     $curl = curl_init(); 
 
     $curl_options = [
-        CURLOPT_URL => $acousticURL."low-level?map_classes='false'&recording_ids=".$mbids,
+        CURLOPT_URL => $reccoURL."track/".$reccoIds."/audio-features",
         CURLOPT_HTTPHEADER => [
-            'User-Agent: Sprintify/1.0 ( zackshoki@gmail.com )',
             'Accept: application/json'
         ],
         CURLOPT_CUSTOMREQUEST => "GET",
@@ -60,7 +59,7 @@ function fetchTrackData($mbids) {
     $data_json = curl_exec($curl);
  
     $data = json_decode($data_json, true);
-
+    debugOutput($data);
     return $data;
 }
 ?>

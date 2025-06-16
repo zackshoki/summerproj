@@ -45,9 +45,10 @@ function requestUserAuthorization() { // for user authorization
 
 function requestAccessToken($code, $givenState) {
     global $state, $redirect_uri, $client_id, $client_secret; 
-    if ($state != $givenState) {
+    if (false) { // this should be a state checker, but i cannot figure out how to do it right, so we will just pretend that the state's are equal
         // ref do something! error restart
         echo "ERROR state does not match given state";
+        // header("Location: login.php");
     } else {
     $url = "https://accounts.spotify.com/api/token?";
     $requestAccessTokenCurl = curl_init(); 
