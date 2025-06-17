@@ -57,7 +57,7 @@ function fetchTrackData($reccoIds) { // this only works for one rn, but may use 
     ];
     curl_setopt_array($curl, $curl_options);
     $data_json = curl_exec($curl);
- 
+
     $data = json_decode($data_json, true);
     debugOutput($data);
     return $data;

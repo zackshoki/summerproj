@@ -2,14 +2,12 @@
 
 include('include/init.php');
 $allUsers = getAllUsers();
-if (!isset($_COOKIE['spotify_token'])) {
+if (!isset($_COOKIE['spotify_token'])) { 
     if (isset($_REQUEST['code']) && isset($_REQUEST['state'])) {
         $token = requestAccessToken($_REQUEST['code'], $_REQUEST['state']); 
     } else {
         header('Location: login.php'); // work on refresh tokens in the future. 
-    }
-
-    
+    }   
 } else {
     $token = $_COOKIE['spotify_token'];
 }
@@ -28,7 +26,6 @@ if (!isset($_COOKIE['spotify_token'])) {
     <?php 
     $spotifySong = spotifyGetRequest($token, 'https://api.spotify.com/v1/me/tracks', "limit=20");
     $spotifyId = $spotifySong['items'][0]['track']['id'];
-    // $isrc = 'USAT21500442';
     fetchTrackData(spotifyIdsToReccoIds($spotifyId));
 
     ?>
@@ -42,7 +39,6 @@ if (!isset($_COOKIE['spotify_token'])) {
    <script>
     token = "<?php echo $token ?>";
     fetchProfile(token).then((profile) => {
-        thing = profile;
         populateUI(profile);
     });
    </script>

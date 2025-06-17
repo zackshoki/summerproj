@@ -5,6 +5,7 @@ $redirect_uri = 'http://[::1]:8888/index.php';
 $client_id = 'e222be8a405045a79868de716b5aef44';   // look down
 $client_secret = 'd48a28f221264ee8bfe3ad63c33006be'; // these should definitely be stored differently, maybe in the db? 
 
+$refresh_token; // must store in db
 
 function getToken() // no user authorization, uses client credentials
 {
@@ -31,7 +32,6 @@ function getToken() // no user authorization, uses client credentials
     return $token;
 }
 function requestUserAuthorization() { // for user authorization
-// scopes needed: ugc-image-upload, user-modify-playback-state, playlist-read-private, playlist-read-collaborative, playlist-modify-private, playlist-modify-public, user-top-read, user-read-recently-played, user-library-modify, user-library-read, user-read-email, user-read-private, user-soa-link, soa-manage-partner,  
 // idk what the state parameter should be??
     global $client_id; // probably should be stored in a different way? maybe should be a parameter in this function and stored in the db?
     global $redirect_uri;
@@ -44,7 +44,7 @@ function requestUserAuthorization() { // for user authorization
 }
 
 function requestAccessToken($code, $givenState) {
-    global $state, $redirect_uri, $client_id, $client_secret; 
+    global $state, $redirect_uri, $client_id, $client_secret, $refresh_token; 
     if (false) { // this should be a state checker, but i cannot figure out how to do it right, so we will just pretend that the state's are equal
         // ref do something! error restart
         echo "ERROR state does not match given state";
@@ -69,11 +69,52 @@ function requestAccessToken($code, $givenState) {
     $formatted_data = json_decode($data, true);
     if (!isset($formatted_data['error'])) {
         $token = $formatted_data['access_token'];
+        $refresh_token = $formatted_data['refresh_token'];
         setcookie("spotify_token", $token, time() + $formatted_data['expires_in'], "/", "", true, true); // update the false to true once we have https instead of http
         return $token;
     } else {
         header("Location: login.php");
     }
 }
+}
+
+function requestRefreshToken($refresh_token) {
+
+    global $state, $redirect_uri, $client_id, $client_secret, $refresh_token; 
+    
+    $url = "https://accounts.spotify.com/api/token?";
+    $requestRefreshTokenCurl = curl_init(); 
+    $postBody = "grant_type=refresh_token&refresh_token=$refresh_token";
+
+    $curl_options = [
+        CURLOPT_URL => $url.$postBody,
+        CURLOPT_RETURNTRANSFER => TRUE,
+        CURLOPT_POST => TRUE,
+        CURLOPT_HTTPHEADER => [
+            "content-type: application/x-www-form-urlencoded",
+            "Authorization: Basic ".base64_encode($client_id.":".$client_secret)
+        ],
+    ];
+
+    curl_setopt_array($requestRefreshTokenCurl, $curl_options);
+    $data = curl_exec($requestRefreshTokenCurl);
+    $formatted_data = json_decode($data, true);
+    if (!isset($formatted_data['error'])) {
+        $token = $formatted_data['access_token'];
+        if (isset($formatted_data['refresh_token'])) {$refresh_token = $formatted_data['refresh_token'];}
+        setcookie("spotify_token", $token, time() + $formatted_data['expires_in'], "/", "", true, true);
+        return $token;
+    } else {
+        header("Location: login.php");
+    }
+
+}
+function storeRefreshToken() {
+    global $refresh_token; 
+    $refresh_token; // eventually query the db to store it
+}
+function getRefreshToken() {
+    global $refresh_token;
+    $refresh_token; // eventually query the db to get it 
 }
 ?>
