@@ -9,4 +9,5 @@
     include('users.php');
     include('get_access_token.php');
     include('curl_request.php');
+    include('songs.php');
     $state = bin2hex(random_bytes(16 / 2)); // random string 16 digits long

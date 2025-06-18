@@ -28,7 +28,13 @@ totalSavedTracks();
     // $spotifySong = spotifyGetRequest($token, 'https://api.spotify.com/v1/me/tracks', "limit=20");
     // $spotifyId = $spotifySong['items'][0]['track']['id'];
     // fetchTrackData(spotifyIdToReccoId($spotifyId));
-    debugOutput(spotifyIdsToReccoData(getAllSavedTracks()));
+    $savedTracksFromSpotify = array_slice(getAllSavedTracks(), 0, 5);
+    $reccoTrackData = spotifyIdsToReccoData($savedTracksFromSpotify);
+    $analyzedTracks = analyzeTracks($reccoTrackData);
+    $mergedTrackData = mergeSongDataFromRecco($reccoTrackData, $analyzedTracks);
+    storeTrackData($mergedTrackData);
+    // save in the DB
+    // debugOutput($reccoTrackData);
     ?>
     <div id="avatar"></div>
     <div id="displayName"></div>

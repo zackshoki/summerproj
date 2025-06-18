@@ -28,9 +28,10 @@ function totalSavedTracks() {
 }
 function getAllSavedTracks() { // this needs to get all of a user's saved tracks. we can only get 50 per request, and we can access the total amount of tracks through
     global $total, $token;
-    $totalTracks = $total;
+    $totalTracks = min($total, 50);
     $loopNumber = ($totalTracks - ($totalTracks % 50)) / 50;
-    $remainderTracks = $totalTracks % 50;
+    // $remainderTracks = $totalTracks % 50;
+    $remainderTracks = 0;
     $trackIds = [];
     for ($i = 0; $i < $loopNumber; $i++) {
         $trackDatas = spotifyGetRequest($token, 'https://api.spotify.com/v1/me/tracks', "limit=50&offset=".($i*50));
@@ -92,7 +93,8 @@ function spotifyIdsToReccoData($spotifyIds) { // like the above function but ins
         $data_json = curl_exec($curl);
         $data = json_decode($data_json, true);
         foreach ($data['content'] as $track) {
-            array_push($reccoIds, $track);
+            $songId = $track['id'];
+            $reccoIds[$songId] = $track;
         }
     }
 
@@ -108,14 +110,34 @@ function spotifyIdsToReccoData($spotifyIds) { // like the above function but ins
         $data_json = curl_exec($curl);
         $data = json_decode($data_json, true); 
         foreach ($data['content'] as $track) {
-            array_push($reccoIds, $track);
+            $songId = $track['id'];
+            $reccoIds[$songId] = $track;
         }
     }
 
     return $reccoIds;
 }
-function analyzeTracks($array) { // takes an array of track metadata like the one returned from spotifyIdsToReccoData and gets the audio analysis from each one
+function analyzeTracks($tracks) { // takes an array of track metadata like the one returned from spotifyIdsToReccoData and gets the audio analysis from each one 
+    global $reccoURL; 
+    $curl = curl_init(); 
+    $tracksFeatures = [];
+    foreach ($tracks as $track) {
+    
+        $curl_options = [
+            CURLOPT_URL => $reccoURL."track/".$track['id']."/audio-features",
+            CURLOPT_HTTPHEADER => [
+                'Accept: application/json'
+            ],
+            CURLOPT_RETURNTRANSFER => TRUE,
+            
+        ];
+        curl_setopt_array($curl, $curl_options);
+        $data_json = curl_exec($curl);
+        $data = json_decode($data_json, true); 
 
+        array_push($tracksFeatures, $data);
+    }
+    return $tracksFeatures;
 }
 function fetchTrackData($reccoIds) { // dont use
     global $reccoURL;
