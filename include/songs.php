@@ -35,6 +35,6 @@ function storeTrackData($fullTrackData) { // takes in array of full track data t
         $rows[] = "('".$track['name']."', '".$track['artist']."', ".$track['tempo'].", '".$track['spotifyId']."', '".$track['reccoId']."')";
     }
     dbQuery("
-    INSERT INTO songs (name, artist, tempo, spotifyId, reccoId) VALUES ".implode(", ", $rows)."
+    INSERT IGNORE INTO songs (name, artist, tempo, spotifyId, reccoId) VALUES ".implode(", ", $rows)."
     ");
 }
