@@ -11,23 +11,24 @@ if (!isset($_COOKIE['spotify_token'])) {
 } else {
     $token = $_COOKIE['spotify_token'];
 }
+totalSavedTracks();
 ?>
 
 <html>
 
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width">
-    <title>summ3erproj</title>
+    <title>Sprintify</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <script type="text/javascript" src="scripts/main.js"></script>
 </head>
 
 <body>
     <?php 
-    $spotifySong = spotifyGetRequest($token, 'https://api.spotify.com/v1/me/tracks', "limit=20");
-    $spotifyId = $spotifySong['items'][0]['track']['id'];
-    fetchTrackData(spotifyIdsToReccoIds($spotifyId));
-
+    // $spotifySong = spotifyGetRequest($token, 'https://api.spotify.com/v1/me/tracks', "limit=20");
+    // $spotifyId = $spotifySong['items'][0]['track']['id'];
+    // fetchTrackData(spotifyIdsToReccoIds($spotifyId));
+    debugOutput(getAllSavedTracks());
     ?>
     <div id="avatar"></div>
     <div id="displayName"></div>

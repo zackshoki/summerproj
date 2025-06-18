@@ -1,6 +1,6 @@
 <?php
-
-function spotifyGetRequest($token, $url, $formatted_fields)
+global $total;
+function spotifyGetRequest($token, $url, $formatted_fields) 
 {
     $spotify_curl = curl_init();
 
@@ -20,10 +20,38 @@ function spotifyGetRequest($token, $url, $formatted_fields)
     return $data; 
     
 }
+function totalSavedTracks() {
+    global $token;
+    global $total;
+    $tracksInfo = spotifyGetRequest($token, 'https://api.spotify.com/v1/me/tracks', "limit=1");
+    $total = $tracksInfo['total'];
+}
+function getAllSavedTracks() { // this needs to get all of a user's saved tracks. we can only get 50 per request, and we can access the total amount of tracks through
+    global $total, $token;
+    $totalTracks = $total;
+    $loopNumber = ($totalTracks - ($totalTracks % 50)) / 50;
+    $remainderTracks = $totalTracks % 50;
+    $trackIds = [];
+    for ($i = 0; $i < $loopNumber; $i++) {
+        $trackDatas = spotifyGetRequest($token, 'https://api.spotify.com/v1/me/tracks', "limit=50&offset=".($i*50));
+        $tracks = $trackDatas['items'];
+        foreach ($tracks as $track) {
+            array_push($trackIds, $track['track']['id']);
+        }
+    }
+    if ($remainderTracks > 0) {
+        $trackDatas = spotifyGetRequest($token, 'https://api.spotify.com/v1/me/tracks', "limit=$remainderTracks&offset=".($totalTracks - ($totalTracks % 50)));
+        $tracks = $trackDatas['items'];
+        foreach ($tracks as $track) {
+          array_push($trackIds, $track['track']['id']);
+        }
+    }
+    return $trackIds;
+}
 // reccobeats
 $reccoURL = 'https://api.reccobeats.com/v1/';
 
-function spotifyIdsToReccoIds($spotify_ids) { // isrc is a universally identifying code for a specific song recording, mbid is this-api specific idenifying code for the same recording
+function spotifyIdsToReccoIds($spotify_ids) { // this needs to take in a array of spotify ids and turn them each into recco ids
     global $reccoURL; // currently, this funciton only works with one id, but we need to tweak it to make it work with many
     $curl = curl_init(); 
 
