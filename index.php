@@ -27,8 +27,8 @@ totalSavedTracks();
     <?php 
     // $spotifySong = spotifyGetRequest($token, 'https://api.spotify.com/v1/me/tracks', "limit=20");
     // $spotifyId = $spotifySong['items'][0]['track']['id'];
-    // fetchTrackData(spotifyIdsToReccoIds($spotifyId));
-    debugOutput(getAllSavedTracks());
+    // fetchTrackData(spotifyIdToReccoId($spotifyId));
+    debugOutput(spotifyIdsToReccoData(getAllSavedTracks()));
     ?>
     <div id="avatar"></div>
     <div id="displayName"></div>

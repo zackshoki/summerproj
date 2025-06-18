@@ -51,12 +51,12 @@ function getAllSavedTracks() { // this needs to get all of a user's saved tracks
 // reccobeats
 $reccoURL = 'https://api.reccobeats.com/v1/';
 
-function spotifyIdsToReccoIds($spotify_ids) { // this needs to take in a array of spotify ids and turn them each into recco ids
-    global $reccoURL; // currently, this funciton only works with one id, but we need to tweak it to make it work with many
+function spotifyIdToReccoId($spotify_id) { 
+    global $reccoURL; 
     $curl = curl_init(); 
 
     $curl_options = [
-        CURLOPT_URL => $reccoURL."track?ids=".$spotify_ids,
+        CURLOPT_URL => $reccoURL."track?ids=".$spotify_id,
         CURLOPT_HTTPHEADER => [
             'Accept: application/json'
         ],
@@ -66,12 +66,58 @@ function spotifyIdsToReccoIds($spotify_ids) { // this needs to take in a array o
     curl_setopt_array($curl, $curl_options);
     $data_json = curl_exec($curl);
     $data = json_decode($data_json, true); 
-    debugOutput($data);
+
     $reccoId = $data['content'][0]['id'];
 
     return $reccoId;
 }
-function fetchTrackData($reccoIds) { // this only works for one rn, but may use a loop to get many
+
+function spotifyIdsToReccoData($spotifyIds) { // like the above function but instead of taking a singular id it takes multiple. reccobeats can only process 40 ids at a time 
+    global $reccoURL;
+    $curl = curl_init(); 
+    $reccoIds = [];
+
+    $totalTracks = count($spotifyIds);
+    $loopNumber = ($totalTracks - ($totalTracks % 40)) / 40;
+    $remainderTracks = $totalTracks % 40;
+    for ($i = 0; $i < $loopNumber; $i++) {
+        $curl_options = [
+            CURLOPT_URL => $reccoURL."track?ids=".implode(",", array_slice($spotifyIds, ($i*40), 40)),
+            CURLOPT_HTTPHEADER => [
+                'Accept: application/json'
+            ],
+            CURLOPT_RETURNTRANSFER => TRUE,
+        ];
+        curl_setopt_array($curl, $curl_options);
+        $data_json = curl_exec($curl);
+        $data = json_decode($data_json, true);
+        foreach ($data['content'] as $track) {
+            array_push($reccoIds, $track);
+        }
+    }
+
+    if ($remainderTracks > 0) {
+        $curl_options = [
+            CURLOPT_URL => $reccoURL."track?ids=".implode(",", array_slice($spotifyIds, ($totalTracks - ($totalTracks % 40)) , $remainderTracks)), // there could be an off by one issue here
+            CURLOPT_HTTPHEADER => [
+                'Accept: application/json'
+            ],
+            CURLOPT_RETURNTRANSFER => TRUE,
+        ];
+        curl_setopt_array($curl, $curl_options);
+        $data_json = curl_exec($curl);
+        $data = json_decode($data_json, true); 
+        foreach ($data['content'] as $track) {
+            array_push($reccoIds, $track);
+        }
+    }
+
+    return $reccoIds;
+}
+function analyzeTracks($array) { // takes an array of track metadata like the one returned from spotifyIdsToReccoData and gets the audio analysis from each one
+
+}
+function fetchTrackData($reccoIds) { // dont use
     global $reccoURL;
     $curl = curl_init(); 
 
@@ -87,7 +133,7 @@ function fetchTrackData($reccoIds) { // this only works for one rn, but may use 
     $data_json = curl_exec($curl);
 
     $data = json_decode($data_json, true);
-    debugOutput($data);
+
     return $data;
 }
 ?>
