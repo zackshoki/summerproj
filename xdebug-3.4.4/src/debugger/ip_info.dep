@@ -1,0 +1,2 @@
+src/debugger/ip_info.lo: \
+  /Applications/MAMP/htdocs/xdebug-3.4.4/src/debugger/ip_info.c

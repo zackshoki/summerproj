@@ -1,0 +1,3 @@
+src/lib/hash.lo: /Applications/MAMP/htdocs/xdebug-3.4.4/src/lib/hash.c \
+  /Applications/MAMP/htdocs/xdebug-3.4.4/src/lib/hash.h \
+  /Applications/MAMP/htdocs/xdebug-3.4.4/src/lib/llist.h

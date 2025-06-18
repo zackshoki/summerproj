@@ -1,0 +1,2 @@
+src/lib/set.lo: /Applications/MAMP/htdocs/xdebug-3.4.4/src/lib/set.c \
+  /Applications/MAMP/htdocs/xdebug-3.4.4/src/lib/set.h

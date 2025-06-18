@@ -1,0 +1,2 @@
+src/lib/llist.lo: /Applications/MAMP/htdocs/xdebug-3.4.4/src/lib/llist.c \
+  /Applications/MAMP/htdocs/xdebug-3.4.4/src/lib/llist.h
