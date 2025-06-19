@@ -23,7 +23,8 @@ function mergeSongDataFromRecco($trackMetaData, $trackTempoData) {
             'tempo' => $track['tempo'],
             'spotifyId' => str_replace("https://open.spotify.com/track/", "", $trackInfo['href']),
             'name' => $trackInfo['trackTitle'],
-            'artist' => $trackInfo['artists'][0]['name']
+            'artist' => $trackInfo['artists'][0]['name'],
+            'length' => $trackInfo['durationMs']*0.001
         ];
     }
     return $mergedTrackData;
@@ -32,9 +33,9 @@ function mergeSongDataFromRecco($trackMetaData, $trackTempoData) {
 function storeTrackData($fullTrackData) { // takes in array of full track data that is indexed by reccoId, like that returned by mergeSongDataFromRecco();
     $rows = [];
     foreach ($fullTrackData as $track) {
-        $rows[] = "('".$track['name']."', '".$track['artist']."', ".$track['tempo'].", '".$track['spotifyId']."', '".$track['reccoId']."')";
+        $rows[] = "('".$track['name']."', '".$track['artist']."', ".$track['tempo'].", '".$track['spotifyId']."', '".$track['reccoId']."', '".$track['length']."')";
     }
     dbQuery("
-    INSERT IGNORE INTO songs (name, artist, tempo, spotifyId, reccoId) VALUES ".implode(", ", $rows)."
+    INSERT IGNORE INTO songs (name, artist, tempo, spotifyId, reccoId, length) VALUES ".implode(", ", $rows)."
     ");
 }

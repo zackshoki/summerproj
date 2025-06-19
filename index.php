@@ -11,7 +11,7 @@ if (!isset($_COOKIE['spotify_token'])) {
 } else {
     $token = $_COOKIE['spotify_token'];
 }
-totalSavedTracks();
+sendDataToDB(); 
 ?>
 
 <html>
@@ -24,18 +24,6 @@ totalSavedTracks();
 </head>
 
 <body>
-    <?php 
-    // $spotifySong = spotifyGetRequest($token, 'https://api.spotify.com/v1/me/tracks', "limit=20");
-    // $spotifyId = $spotifySong['items'][0]['track']['id'];
-    // fetchTrackData(spotifyIdToReccoId($spotifyId));
-    $savedTracksFromSpotify = array_slice(getAllSavedTracks(), 90, 5);
-    $reccoTrackData = spotifyIdsToReccoData($savedTracksFromSpotify);
-    $analyzedTracks = analyzeTracks($reccoTrackData);
-    $mergedTrackData = mergeSongDataFromRecco($reccoTrackData, $analyzedTracks);
-    storeTrackData($mergedTrackData);
-    // save in the DB
-    // debugOutput($reccoTrackData);
-    ?>
     <div id="avatar"></div>
     <div id="displayName"></div>
     <div id="imgUrl"></div>
