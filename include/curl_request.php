@@ -24,6 +24,7 @@ function totalSavedTracks() {
     global $token;
     global $total;
     $tracksInfo = spotifyGetRequest($token, 'https://api.spotify.com/v1/me/tracks', "limit=1");
+
     $total = $tracksInfo['total'];
 }
 function getAllSavedTracks() { // this needs to get all of a user's saved tracks. we can only get 50 per request, and we can access the total amount of tracks through

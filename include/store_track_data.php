@@ -1,9 +1,11 @@
 <?php
-function sendDataToDB() {
+
+    $token = getenv('ACCESS_TOKEN');
+    
     totalSavedTracks();
-    $savedTracksFromSpotify = array_slice(getAllSavedTracks(), random_int(0, 600), 10);
+    $savedTracksFromSpotify = getAllSavedTracks();
     $reccoTrackData = spotifyIdsToReccoData($savedTracksFromSpotify);
     $analyzedTracks = analyzeTracks($reccoTrackData);
     $mergedTrackData = mergeSongDataFromRecco($reccoTrackData, $analyzedTracks);
     storeTrackData($mergedTrackData);
-}
+

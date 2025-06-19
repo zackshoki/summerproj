@@ -31,11 +31,23 @@ function mergeSongDataFromRecco($trackMetaData, $trackTempoData) {
 }
 
 function storeTrackData($fullTrackData) { // takes in array of full track data that is indexed by reccoId, like that returned by mergeSongDataFromRecco();
+    global $pdo; 
+
     $rows = [];
     foreach ($fullTrackData as $track) {
-        $rows[] = "('".$track['name']."', '".$track['artist']."', ".$track['tempo'].", '".$track['spotifyId']."', '".$track['reccoId']."', '".$track['length']."')";
+        // $rows[] = "('".$track['name']."', '".$track['artist']."', ".$track['tempo'].", '".$track['spotifyId']."', '".$track['reccoId']."', '".$track['length']."')";
+        $name = $pdo->quote($track['name']);
+        $artist = $pdo->quote($track['artist']);
+        $tempo = floatval($track['tempo']); // make sure it's a valid float
+        $spotifyId = $pdo->quote($track['spotifyId']);
+        $reccoId = $pdo->quote($track['reccoId']);
+        $length = $pdo->quote($track['length']);
+
+        $rows[] = "($name, $artist, $tempo, $spotifyId, $reccoId, $length)";
     }
+    if (!empty($rows)) {
     dbQuery("
     INSERT IGNORE INTO songs (name, artist, tempo, spotifyId, reccoId, length) VALUES ".implode(", ", $rows)."
     ");
+    }
 }
