@@ -7,32 +7,7 @@ $client_secret = 'd48a28f221264ee8bfe3ad63c33006be'; // these should definitely 
 
 $refresh_token; // must store in db
 
-function getToken() // no user authorization, uses client credentials
-{
-    global $client_id;
-    global $client_secret;
-
-    $formatted_client_credentials = "grant_type=client_credentials&client_id=$client_id&client_secret=$client_secret";
-    $url = "https://accounts.spotify.com/api/token";
-    $spotify_token_curl = curl_init();
-
-    $curl_options = [
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => TRUE,
-        CURLOPT_POST => TRUE,
-        CURLOPT_HTTPHEADER => [
-            'Content-Type: application/x-www-form-urlencoded'
-        ],
-        CURLOPT_POSTFIELDS => $formatted_client_credentials
-    ];
-    curl_setopt_array($spotify_token_curl, $curl_options);
-    $recieved_data = curl_exec($spotify_token_curl);
-    $token_array = json_decode($recieved_data, true);
-    $token = $token_array['access_token'];
-    return $token;
-}
 function requestUserAuthorization() { // for user authorization
-// idk what the state parameter should be??
     global $client_id; // probably should be stored in a different way? maybe should be a parameter in this function and stored in the db?
     global $redirect_uri;
     $scopes = 'ugc-image-upload%20user-modify-playback-state%20playlist-read-private%20playlist-read-collaborative%20playlist-modify-private%20playlist-modify-public%20user-top-read%20user-read-recently-played%20user-library-modify%20user-library-read%20user-read-email%20user-read-private';
@@ -46,9 +21,8 @@ function requestUserAuthorization() { // for user authorization
 function requestAccessToken($code, $givenState) {
     global $state, $redirect_uri, $client_id, $client_secret, $refresh_token; 
     if (false) { // this should be a state checker, but i cannot figure out how to do it right, so we will just pretend that the state's are equal
-        // ref do something! error restart
         echo "ERROR state does not match given state";
-        // header("Location: login.php");
+ 
     } else {
     $url = "https://accounts.spotify.com/api/token?";
     $requestAccessTokenCurl = curl_init(); 
@@ -62,7 +36,6 @@ function requestAccessToken($code, $givenState) {
             "content-type: application/x-www-form-urlencoded",
             "Authorization: Basic ".base64_encode($client_id.":".$client_secret)
         ],
-        // CURLOPT_POSTFIELDS => $postBody this was making everything tweak i think
     ];
     curl_setopt_array($requestAccessTokenCurl, $curl_options);
     $data = curl_exec($requestAccessTokenCurl);

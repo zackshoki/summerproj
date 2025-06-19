@@ -27,7 +27,7 @@ function totalSavedTracks() {
 
     $total = $tracksInfo['total'];
 }
-function getAllSavedTracks() { // this needs to get all of a user's saved tracks. we can only get 50 per request, and we can access the total amount of tracks through
+function getAllSavedTracks() { 
     global $total, $token;
     $totalTracks = $total;
     $loopNumber = ($totalTracks - ($totalTracks % 50)) / 50;
@@ -50,29 +50,9 @@ function getAllSavedTracks() { // this needs to get all of a user's saved tracks
     }
     return $trackIds;
 }
+
 // reccobeats
 $reccoURL = 'https://api.reccobeats.com/v1/';
-
-function spotifyIdToReccoId($spotify_id) { 
-    global $reccoURL; 
-    $curl = curl_init(); 
-
-    $curl_options = [
-        CURLOPT_URL => $reccoURL."track?ids=".$spotify_id,
-        CURLOPT_HTTPHEADER => [
-            'Accept: application/json'
-        ],
-        CURLOPT_RETURNTRANSFER => TRUE,
-        
-    ];
-    curl_setopt_array($curl, $curl_options);
-    $data_json = curl_exec($curl);
-    $data = json_decode($data_json, true); 
-
-    $reccoId = $data['content'][0]['id'];
-
-    return $reccoId;
-}
 
 function spotifyIdsToReccoData($spotifyIds) { // like the above function but instead of taking a singular id it takes multiple. reccobeats can only process 40 ids at a time 
     global $reccoURL;
@@ -139,24 +119,5 @@ function analyzeTracks($tracks) { // takes an array of track metadata like the o
         array_push($tracksFeatures, $data);
     }
     return $tracksFeatures;
-}
-function fetchTrackData($reccoIds) { // dont use
-    global $reccoURL;
-    $curl = curl_init(); 
-
-    $curl_options = [
-        CURLOPT_URL => $reccoURL."track/".$reccoIds."/audio-features",
-        CURLOPT_HTTPHEADER => [
-            'Accept: application/json'
-        ],
-        CURLOPT_CUSTOMREQUEST => "GET",
-        CURLOPT_RETURNTRANSFER => TRUE
-    ];
-    curl_setopt_array($curl, $curl_options);
-    $data_json = curl_exec($curl);
-
-    $data = json_decode($data_json, true);
-
-    return $data;
 }
 ?>

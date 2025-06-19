@@ -35,10 +35,9 @@ function storeTrackData($fullTrackData) { // takes in array of full track data t
 
     $rows = [];
     foreach ($fullTrackData as $track) {
-        // $rows[] = "('".$track['name']."', '".$track['artist']."', ".$track['tempo'].", '".$track['spotifyId']."', '".$track['reccoId']."', '".$track['length']."')";
         $name = $pdo->quote($track['name']);
         $artist = $pdo->quote($track['artist']);
-        $tempo = floatval($track['tempo']); // make sure it's a valid float
+        $tempo = floatval($track['tempo']);
         $spotifyId = $pdo->quote($track['spotifyId']);
         $reccoId = $pdo->quote($track['reccoId']);
         $length = $pdo->quote($track['length']);

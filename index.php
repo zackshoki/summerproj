@@ -1,20 +1,17 @@
 <?php
-include('include/init.php');
+    include('include/init.php');
 
-if (!isset($_COOKIE['spotify_token'])) { 
-    if (isset($_REQUEST['code']) && isset($_REQUEST['state'])) {
-        $token = requestAccessToken($_REQUEST['code'], $_REQUEST['state']); 
-        shell_exec("nohup ACCESS_TOKEN=$token php include/store_track_data.php > /dev/null 2>&1 &'");
+    if (!isset($_COOKIE['spotify_token'])) { 
+        if (isset($_REQUEST['code']) && isset($_REQUEST['state'])) {
+            $token = requestAccessToken($_REQUEST['code'], $_REQUEST['state']); 
+        } else {
+            header('Location: login.php'); // work on refresh tokens in the future. 
+        }   
     } else {
-        header('Location: login.php'); // work on refresh tokens in the future. 
-    }   
-} else {
-    $token = $_COOKIE['spotify_token'];
-}
-
-
+        $token = $_COOKIE['spotify_token'];
+    }
+    saveTracksToDB();
 ?>
-
 <html>
 
 <head>
