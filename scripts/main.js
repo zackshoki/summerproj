@@ -1,0 +1,45 @@
+// spotify functions
+spotifyURL = 'https://api.spotify.com/v1/';
+
+async function fetchProfile(token) {
+    const result = await fetch(spotifyURL + "me", {
+        method: "GET", 
+        headers: {
+             Authorization: `Bearer ${token}` 
+            }
+    })
+    
+
+    return await result.json();
+}
+
+function populateUI(profile) {
+    console.log(profile);
+    document.getElementById("displayName").innerText = profile.display_name;
+    if (profile.images[0]) {
+        const profileImage = new Image(200, 200);
+        profileImage.src = profile.images[0].url;
+        document.getElementById("avatar").appendChild(profileImage);
+        document.getElementById("imgUrl").innerText = profile.images[0].url;
+    }
+    document.getElementById("id").innerText = profile.id;
+    document.getElementById("email").innerText = profile.email;
+    document.getElementById("uri").innerText = profile.uri;
+    document.getElementById("uri").setAttribute("href", profile.external_urls.spotify);
+    document.getElementById("url").innerText = profile.href;
+    document.getElementById("url").setAttribute("href", profile.href);
+}
+
+// acousticbrainz/musicbrainz functions 
+acousticURL = 'https://acousticbrainz.org/api/v1/';
+// async function fetchTrackData(mbids) { // where mbids is a list, format is mbid;mbid;mbid etc. 
+//     const data = await fetch(acousticURL + "high-level" + "?map_classes='true'&recording_ids=" + mbids, {
+//         // mode: 'no-cors',
+//         method: "GET",
+//         headers: {
+//             "Content-Type": 'application/json',
+//         }
+//     })
+//     return await data.json();
+// } 
+// ^^ does not work because of cors
