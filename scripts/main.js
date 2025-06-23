@@ -46,3 +46,43 @@ async function createPlaylist(token, userId, playlistName, playlistDescription) 
 
     return await result.json();
 }
+
+async function updatePlaylist(token, playlistId, songIds) {
+    formattedSongIds = songIds.map((songId) => "spotify:track:" + songId);
+    const result = await fetch(spotifyURL + "playlists/" + playlistId + "/tracks?uris=" + formattedSongIds.toString(), {
+        method: "PUT", 
+        headers: {
+             "Authorization": "Bearer " + token,
+             "Content-Type": "application/json"
+            }
+    }); 
+
+    return await result.json();
+}
+
+async function clearPlaylist(token, playlistId, tracks) { // needs the tracks attribute from the playlist to clear all of them
+    const result = await fetch(spotifyURL + "playlists/" + playlistId + "/tracks", {
+        method: "DELETE", 
+        headers: {
+             "Authorization": "Bearer " + token,
+             "Content-Type": "application/json"
+            },
+        body: {
+            tracks: JSON.stringify(tracks)
+        }
+    }); 
+
+    return await result.json();
+}
+
+async function getPlaylist(token, playlistId) {
+    const result = await fetch(spotifyURL + "playlists/" + playlistId, {
+        method: "GET", 
+        headers: {
+             "Authorization": "Bearer " + token,
+             "Content-Type": "application/json"
+            }
+    }); 
+
+    return await result.json();
+}
