@@ -29,11 +29,17 @@
     <div id="email"></div>
     <div id="uri"></div>
     <div id="url"></div>
+    link: <div id="playlist"></div>
    <script>
     token = "<?php echo $token ?>";
     fetchProfile(token).then((profile) => {
         populateUI(profile);
+        createPlaylist(token, profile.id, "ZackCorp Workout Playlist", "this is a test playlist").then((playlist) => {
+            document.getElementById("playlist").innerText = playlist.external_urls.spotify;
+        }
+        )
     });
+    
    </script>
 </body>
 

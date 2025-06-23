@@ -30,16 +30,19 @@ function populateUI(profile) {
     document.getElementById("url").setAttribute("href", profile.href);
 }
 
-// acousticbrainz/musicbrainz functions 
-acousticURL = 'https://acousticbrainz.org/api/v1/';
-// async function fetchTrackData(mbids) { // where mbids is a list, format is mbid;mbid;mbid etc. 
-//     const data = await fetch(acousticURL + "high-level" + "?map_classes='true'&recording_ids=" + mbids, {
-//         // mode: 'no-cors',
-//         method: "GET",
-//         headers: {
-//             "Content-Type": 'application/json',
-//         }
-//     })
-//     return await data.json();
-// } 
-// ^^ does not work because of cors
+async function createPlaylist(token, userId, playlistName, playlistDescription) {
+    const result = await fetch(spotifyURL + "users/" + userId + "/playlists", {
+        method: "POST", 
+        headers: {
+             "Authorization": "Bearer " + token,
+             "Content-Type": "application/json"
+            },
+        body: JSON.stringify({
+            "name": playlistName,
+            "description": playlistDescription, 
+            "public": false
+        })
+    }); 
+
+    return await result.json();
+}
