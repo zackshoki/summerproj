@@ -84,6 +84,7 @@ async function clearPlaylist(token, playlistId) {
 }
 
 async function getPlaylist(token, playlistId) {
+    // we should probably try/catch to see if the user deleted this playlist and send null value of playlistid to the server if the user did end up deleting the playlist.. but im not experienced with try/catch and i dont wanna do dat rn
     const result = await fetch(spotifyURL + "playlists/" + playlistId, {
         method: "GET", 
         headers: {
@@ -93,4 +94,25 @@ async function getPlaylist(token, playlistId) {
     }); 
 
     return await result.json();
+}
+
+function generatePlaylist(token, playlistId) {
+    if (playlistId == "") {
+        fetchProfile(token).then((profile) => {
+            populateUI(profile);
+            createPlaylist(token, profile.id, "ZackCorp Workout Playlist", "this is a test playlist").then((playlist) => {
+                // access playlist attributes here if needed
+                updatePlaylist(token, playlistId, ['2qmmnbJ9JR3f7vofbyje5r', '1G3YgeTpECl3LYqFsUfzs5', '0VU5k3vCrpqDgUygMjiFYj', '5uQOauh47VFt3B2kV9kRXw', '42zd6DYQ4o4SECmTITrM1U'])
+                document.getElementById("playlistId").value = playlist.id
+                document.getElementById("form").requestSubmit(); // store playlist id through form submission to database to check if the playlist exists already, delete the id if the user wants to save the playlist 
+            });
+    }); 
+    } else {
+        fetchProfile(token).then((profile) => {
+        populateUI(profile);
+        clearPlaylist(token, playlistId).then(() => {
+            updatePlaylist(token, playlistId, ['2qmmnbJ9JR3f7vofbyje5r', '1G3YgeTpECl3LYqFsUfzs5', '0VU5k3vCrpqDgUygMjiFYj', '5uQOauh47VFt3B2kV9kRXw', '42zd6DYQ4o4SECmTITrM1U'])
+        });
+    });
+    }
 }
