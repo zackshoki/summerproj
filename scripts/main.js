@@ -3,12 +3,12 @@ spotifyURL = 'https://api.spotify.com/v1/';
 
 async function fetchProfile(token) {
     const result = await fetch(spotifyURL + "me", {
-        method: "GET", 
+        method: "GET",
         headers: {
-             Authorization: `Bearer ${token}` 
-            }
+            Authorization: `Bearer ${token}`
+        }
     })
-    
+
 
     return await result.json();
 }
@@ -31,17 +31,17 @@ function populateUI(profile) {
 
 async function createPlaylist(token, userId, playlistName, playlistDescription) {
     const result = await fetch(spotifyURL + "users/" + userId + "/playlists", {
-        method: "POST", 
+        method: "POST",
         headers: {
-             "Authorization": "Bearer " + token,
-             "Content-Type": "application/json"
-            },
+            "Authorization": "Bearer " + token,
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify({
             "name": playlistName,
-            "description": playlistDescription, 
+            "description": playlistDescription,
             "public": false
         })
-    }); 
+    });
 
     return await result.json();
 }
@@ -49,35 +49,35 @@ async function createPlaylist(token, userId, playlistName, playlistDescription) 
 async function updatePlaylist(token, playlistId, songIds) {
     formattedSongIds = songIds.map((songId) => "spotify:track:" + songId);
     const result = await fetch(spotifyURL + "playlists/" + playlistId + "/tracks?uris=" + formattedSongIds.toString(), {
-        method: "PUT", 
+        method: "PUT",
         headers: {
-             "Authorization": "Bearer " + token,
-             "Content-Type": "application/json"
-            }
-    }); 
+            "Authorization": "Bearer " + token,
+            "Content-Type": "application/json"
+        }
+    });
 
     return await result.json();
 }
 
-async function clearPlaylist(token, playlistId) { 
-    
-    const playlist =  await getPlaylist(token, playlistId); 
+async function clearPlaylist(token, playlistId) {
+
+    const playlist = await getPlaylist(token, playlistId);
 
     const songIds = playlist.tracks.items.map((item) => ({
         uri: item.track.uri
-        
+
     }));
- 
+
     if (songIds.length > 0) {
         const result = await fetch(spotifyURL + "playlists/" + playlistId + "/tracks", {
-            method: "DELETE", 
+            method: "DELETE",
             headers: {
                 "Authorization": "Bearer " + token,
                 "Content-Type": "application/json"
-                },
+            },
             body: JSON.stringify({ tracks: songIds })
-            
-        }); 
+
+        });
 
         return await result.json();
     }
@@ -86,33 +86,26 @@ async function clearPlaylist(token, playlistId) {
 async function getPlaylist(token, playlistId) {
     // we should probably try/catch to see if the user deleted this playlist and send null value of playlistid to the server if the user did end up deleting the playlist.. but im not experienced with try/catch and i dont wanna do dat rn
     const result = await fetch(spotifyURL + "playlists/" + playlistId, {
-        method: "GET", 
+        method: "GET",
         headers: {
-             "Authorization": "Bearer " + token,
-             "Content-Type": "application/json"
-            }
-    }); 
+            "Authorization": "Bearer " + token,
+            "Content-Type": "application/json"
+        }
+    });
 
     return await result.json();
 }
 
-function generatePlaylist(token, playlistId) {
+async function generatePlaylist(token, profileId, playlistId) {
     if (playlistId == "") {
-        fetchProfile(token).then((profile) => {
-            populateUI(profile);
-            createPlaylist(token, profile.id, "ZackCorp Workout Playlist", "this is a test playlist").then((playlist) => {
-                // access playlist attributes here if needed
-                updatePlaylist(token, playlistId, ['2qmmnbJ9JR3f7vofbyje5r', '1G3YgeTpECl3LYqFsUfzs5', '0VU5k3vCrpqDgUygMjiFYj', '5uQOauh47VFt3B2kV9kRXw', '42zd6DYQ4o4SECmTITrM1U'])
-                document.getElementById("playlistId").value = playlist.id
-                document.getElementById("form").requestSubmit(); // store playlist id through form submission to database to check if the playlist exists already, delete the id if the user wants to save the playlist 
-            });
-    }); 
+        const playlist = await createPlaylist(token, profileId, "ZackCorp Workout Playlist", "this is a test playlist")
+        // access playlist attributes here if needed
+        updatePlaylist(token, playlist.id, ['2qmmnbJ9JR3f7vofbyje5r', '1G3YgeTpECl3LYqFsUfzs5', '0VU5k3vCrpqDgUygMjiFYj', '5uQOauh47VFt3B2kV9kRXw', '42zd6DYQ4o4SECmTITrM1U']);
+        document.getElementById("playlistId").value = playlist.id
+        document.getElementById("form").requestSubmit(); // store playlist id through form submission to database to check if the playlist exists already, delete the id if the user wants to save the playlist 
     } else {
-        fetchProfile(token).then((profile) => {
-        populateUI(profile);
-        clearPlaylist(token, playlistId).then(() => {
-            updatePlaylist(token, playlistId, ['2qmmnbJ9JR3f7vofbyje5r', '1G3YgeTpECl3LYqFsUfzs5', '0VU5k3vCrpqDgUygMjiFYj', '5uQOauh47VFt3B2kV9kRXw', '42zd6DYQ4o4SECmTITrM1U'])
-        });
-    });
+        await clearPlaylist(token, playlistId);
+        updatePlaylist(token, playlistId, ['2qmmnbJ9JR3f7vofbyje5r', '1G3YgeTpECl3LYqFsUfzs5', '0VU5k3vCrpqDgUygMjiFYj', '5uQOauh47VFt3B2kV9kRXw', '42zd6DYQ4o4SECmTITrM1U']);
+
     }
 }

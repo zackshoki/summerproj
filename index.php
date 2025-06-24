@@ -11,13 +11,14 @@
         $token = $_COOKIE['spotify_token'];
     }
 
-    if (isset($_POST['playlistId'])) { // ajax could be used here.. but is it needed?
-        sendPlaylistIdToDB($_POST['playlistId'], 1); // userId is hardcoded for now
-        unset($_POST['playlistId']);
+    if (isset($_GET['playlistId'])) { // ajax could be used here.. but is it needed?
+        sendPlaylistIdToDB($_GET['playlistId'], 1); // userId is hardcoded for now
+        unset($_GET['playlistId']);
     }
     // saveTracksToDB(); this was commented out to make reloads faster. still havent found a good way to save all your songs to the db at once. 
     $playlistId = checkIfPlaylistExists(1)['playlistId'];
 ?>
+
 <html>
 
 <head>
@@ -30,7 +31,11 @@
         playlistId = "<?php echo $playlistId ?>";
    </script>
     <script defer>
-        generatePlaylist(token, playlistId);
+        fetchProfile(token).then((profile) => {
+            populateUI(profile);
+            generatePlaylist(token, profile.id, playlistId);
+        })
+        
    </script>
 </head>
 
@@ -42,7 +47,7 @@
     <div id="email"></div>
     <div id="uri"></div>
     <div id="url"></div>
-    <form id="form" action="index.php" method="POST">
+    <form id="form" action="index.php" method="GET">
         <input type="text" id="playlistId" style="display:none" value="" name="playlistId"/>
         <input type="submit" style="display:none"/> 
     </form>
