@@ -60,16 +60,21 @@ async function updatePlaylist(token, playlistId, songIds) {
     return await result.json();
 }
 
-async function clearPlaylist(token, playlistId, tracks) { // needs the tracks attribute from the playlist to clear all of them
+async function clearPlaylist(token, playlistId) { // needs the tracks attribute from the playlist to clear all of them
+    const playlist = await getPlaylist(token, playlistId); 
+
+    const songIds = playlist.tracks.items.map((item) => ({
+        uri: item.track.uri
+    }));
+    
     const result = await fetch(spotifyURL + "playlists/" + playlistId + "/tracks", {
         method: "DELETE", 
         headers: {
              "Authorization": "Bearer " + token,
              "Content-Type": "application/json"
             },
-        body: {
-            tracks: JSON.stringify(tracks)
-        }
+        body: JSON.stringify({ tracks: songIds })
+        
     }); 
 
     return await result.json();
