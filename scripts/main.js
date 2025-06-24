@@ -14,7 +14,6 @@ async function fetchProfile(token) {
 }
 
 function populateUI(profile) {
-    console.log(profile);
     document.getElementById("displayName").innerText = profile.display_name;
     if (profile.images[0]) {
         const profileImage = new Image(200, 200);
@@ -60,24 +59,28 @@ async function updatePlaylist(token, playlistId, songIds) {
     return await result.json();
 }
 
-async function clearPlaylist(token, playlistId) { // needs the tracks attribute from the playlist to clear all of them
-    const playlist = await getPlaylist(token, playlistId); 
+async function clearPlaylist(token, playlistId) { 
+    
+    const playlist =  await getPlaylist(token, playlistId); 
 
     const songIds = playlist.tracks.items.map((item) => ({
         uri: item.track.uri
-    }));
-    
-    const result = await fetch(spotifyURL + "playlists/" + playlistId + "/tracks", {
-        method: "DELETE", 
-        headers: {
-             "Authorization": "Bearer " + token,
-             "Content-Type": "application/json"
-            },
-        body: JSON.stringify({ tracks: songIds })
         
-    }); 
+    }));
+ 
+    if (songIds.length > 0) {
+        const result = await fetch(spotifyURL + "playlists/" + playlistId + "/tracks", {
+            method: "DELETE", 
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
+                },
+            body: JSON.stringify({ tracks: songIds })
+            
+        }); 
 
-    return await result.json();
+        return await result.json();
+    }
 }
 
 async function getPlaylist(token, playlistId) {
