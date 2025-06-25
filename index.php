@@ -1,22 +1,11 @@
 <?php
     include('include/init.php');
+    $token = tokenSetup();
 
-    if (!isset($_COOKIE['spotify_token'])) { 
-        if (isset($_REQUEST['code']) && isset($_REQUEST['state'])) {
-            $token = requestAccessToken($_REQUEST['code'], $_REQUEST['state']); 
-        } else {
-            header('Location: login.php'); // work on refresh tokens in the future. 
-        }   
-    } else {
-        $token = $_COOKIE['spotify_token'];
-    }
 
-    if (isset($_GET['playlistId'])) { // ajax could be used here.. but is it needed?
-        sendPlaylistIdToDB($_GET['playlistId'], 1); // userId is hardcoded for now
-        unset($_GET['playlistId']);
-    }
+    
     // saveTracksToDB(); this was commented out to make reloads faster. still havent found a good way to save all your songs to the db at once. 
-    $playlistId = checkIfPlaylistExists(1)['playlistId'];
+   
 ?>
 
 <html>
@@ -28,18 +17,17 @@
     <script type="text/javascript" src="scripts/main.js"></script>
     <script defer>
         token = "<?php echo $token ?>";
-        playlistId = "<?php echo $playlistId ?>";
-   </script>
-    <script defer>
+   
         fetchProfile(token).then((profile) => {
             populateUI(profile);
-            generatePlaylist(token, profile.id, playlistId);
-        })
-        
+        });
    </script>
 </head>
 
 <body>
+    <div> 
+        <h1>Sprintify</h1>
+    </div>
     <div id="avatar"></div>
     <div id="displayName"></div>
     <div id="imgUrl"></div>
@@ -47,9 +35,11 @@
     <div id="email"></div>
     <div id="uri"></div>
     <div id="url"></div>
-    <form id="form" action="index.php" method="GET">
-        <input type="text" id="playlistId" style="display:none" value="" name="playlistId"/>
-        <input type="submit" style="display:none"/> 
+    
+    <form id="userData" action="display_playlist.php" method="GET"> 
+        <strong>distance:</strong> <input type="text" id="runtime" name="run_time" value="3"/> miles <br>
+        <strong>desired pace:</strong> <input type="text" id="pace" name="pace" value="10"/> min/mi
+        <input type="submit" /> 
     </form>
 </body>
 

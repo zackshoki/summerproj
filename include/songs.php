@@ -50,3 +50,11 @@ function storeTrackData($fullTrackData) { // takes in array of full track data t
     ");
     }
 }
+
+function getSongList($min, $max) { // gets all songs with a bpm between the values given and returns their spotifyids in an array format, store the length values of each song in the array as well
+
+}
+
+function constructPlaylist($songList, $lengthOfRun) { // GREEDYYYYYOOH algorithm that will randomly shuffle the array given from getSongList and loop through picking a song and adding it to the new songlist until the new song list's length exceeds the length of the run, then returns the new song list
+
+}
