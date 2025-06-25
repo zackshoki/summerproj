@@ -109,3 +109,11 @@ async function generatePlaylist(token, profileId, playlistId, songs) { // songs 
         updatePlaylist(token, playlistId, songs);
     }
 }
+
+function paceToTempo($pace) { // running cadence calculations... potentiallly have an option for runners to either enter their height, enter their steps per minute, or link their strava for more accurate calculations
+
+}
+
+function distanceToMinutes($distance, $pace) {
+
+}

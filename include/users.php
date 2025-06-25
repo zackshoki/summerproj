@@ -17,6 +17,14 @@
         ")->fetch();
         return $user;
     }
+    function getCadence($userId) {
+        $user = dbQuery("
+            SELECT cadence
+            FROM users
+            WHERE userId = $userId 
+        ")->fetch();
+        return $user;
+    }
     function checkIfPlaylistExists($userId) {
         $playlistId = dbQuery("
             SELECT playlistId FROM users WHERE userId='$userId'
