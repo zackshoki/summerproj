@@ -1,11 +1,7 @@
 <?php
     include('include/init.php');
     $token = tokenSetup();
-
-
-    
     // saveTracksToDB(); this was commented out to make reloads faster. still havent found a good way to save all your songs to the db at once. 
-   
 ?>
 
 <html>

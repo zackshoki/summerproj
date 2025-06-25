@@ -96,16 +96,16 @@ async function getPlaylist(token, playlistId) {
     return await result.json();
 }
 
-async function generatePlaylist(token, profileId, playlistId) {
+async function generatePlaylist(token, profileId, playlistId, songs) { // songs is an array of spotify ids
+    console.log("hello");
     if (playlistId == "") {
-        const playlist = await createPlaylist(token, profileId, "ZackCorp Workout Playlist", "this is a test playlist")
+        const playlist = await createPlaylist(token, profileId, "ZackCorp Workout Playlist", "this a test playlist");
         // access playlist attributes here if needed
-        updatePlaylist(token, playlist.id, ['2qmmnbJ9JR3f7vofbyje5r', '1G3YgeTpECl3LYqFsUfzs5', '0VU5k3vCrpqDgUygMjiFYj', '5uQOauh47VFt3B2kV9kRXw', '42zd6DYQ4o4SECmTITrM1U']);
-        document.getElementById("playlistId").value = playlist.id
+        updatePlaylist(token, playlist.id, songs);
+        document.getElementById("playlistId").value = playlist.id;
         document.getElementById("form").requestSubmit(); // store playlist id through form submission to database to check if the playlist exists already, delete the id if the user wants to save the playlist 
     } else {
         await clearPlaylist(token, playlistId);
-        updatePlaylist(token, playlistId, ['2qmmnbJ9JR3f7vofbyje5r', '1G3YgeTpECl3LYqFsUfzs5', '0VU5k3vCrpqDgUygMjiFYj', '5uQOauh47VFt3B2kV9kRXw', '42zd6DYQ4o4SECmTITrM1U']);
-
+        updatePlaylist(token, playlistId, songs);
     }
 }
