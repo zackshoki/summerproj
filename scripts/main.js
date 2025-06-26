@@ -1,5 +1,5 @@
 // spotify functions
-spotifyURL = 'https://api.spotify.com/v1/';
+const spotifyURL = 'https://api.spotify.com/v1/';
 
 async function fetchProfile(token) {
     const result = await fetch(spotifyURL + "me", {
@@ -14,7 +14,6 @@ async function fetchProfile(token) {
 }
 
 function populateUI(profile) {
-    console.log(profile);
     document.getElementById("displayName").innerText = profile.display_name;
     if (profile.images[0]) {
         const profileImage = new Image(200, 200);
