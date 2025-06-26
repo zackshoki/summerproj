@@ -1,5 +1,7 @@
 <?php
 global $total;
+$spotifyURL = 'https://api.spotify.com/v1/';
+
 function spotifyGetRequest($token, $url, $formatted_fields) 
 {
     $spotify_curl = curl_init();
@@ -20,6 +22,29 @@ function spotifyGetRequest($token, $url, $formatted_fields)
     return $data; 
     
 }
+
+function makeSpotifyPostRequest($token, $url, $postData) {
+    $spotify_curl = curl_init();
+    global $spotifyURL;
+
+    $spotify_curl_options = [
+        CURLOPT_URL => $spotifyURL . $url,
+        CURLOPT_HTTPHEADER => [
+            'Authorization: Bearer '.$token,
+            'Content-Type: application/json'
+        ],
+        CURLOPT_POST => true,
+        CURLOPT_RETURNTRANSFER => TRUE,
+        CURLOPT_POSTFIELDS => json_encode($postData)
+    ];
+
+    curl_setopt_array($spotify_curl, $spotify_curl_options);
+    $data_json = curl_exec($spotify_curl);
+    $data = json_decode($data_json, true);
+    debugOutput($data);
+    return $data; 
+}
+
 function totalSavedTracks() {
     global $token;
     global $total;

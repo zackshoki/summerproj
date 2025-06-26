@@ -1,6 +1,7 @@
 <?php
     include('include/init.php');
     $token = tokenSetup();
+
     // saveTracksToDB(); this was commented out to make reloads faster. still havent found a good way to save all your songs to the db at once. 
 ?>
 
@@ -11,13 +12,6 @@
     <title>Sprintify</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <script type="text/javascript" src="scripts/main.js"></script>
-    <script defer>
-        token = "<?php echo $token ?>";
-   
-        fetchProfile(token).then((profile) => {
-            populateUI(profile);
-        });
-   </script>
 </head>
 
 <body>
@@ -37,6 +31,10 @@
         <strong>desired pace:</strong> <input type="text" id="pace" name="pace" value="10"/> min/mi
         <input type="submit" /> 
     </form>
+    <script defer>
+        const profile = <?php echo getSpotifyProfile(1); ?>;
+        populateUI(profile);
+   </script>
 </body>
 
 </html>

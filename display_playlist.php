@@ -6,7 +6,9 @@
         sendPlaylistIdToDB($_POST['playlistId'], 1); // userId is hardcoded for now
         unset($_POST['playlistId']);
     }
-    $playlistId = checkIfPlaylistExists(1)['playlistId'];
+    $playlistId = checkIfPlaylistExists(1);
+    debugOutput(['playlistId' => $playlistId]);
+    die;
     $minutes = distanceToMinutes($_POST['run_distance'], $_POST['pace']);
     $tempo = paceToTempo($_POST['pace']);
     $songs = constructPlaylist($tempo - 10, $tempo + 10, $minutes);
@@ -21,11 +23,12 @@
         <link rel="stylesheet" href="stylesheets/styles.css">
         <script type="text/javascript" src="scripts/main.js"></script>
         <script defer>
-            token = "<?php echo $token ?>";
-            playlistId = "<?php echo $playlistId ?>";
-            songs = <?php echo json_encode($songs, true) ?>;
-
+            const profile = <?php echo getSpotifyProfile(1); ?>;
+            const playlistId = "<?php echo $playlistId ?>";
+            const songs = <?php echo json_encode($songs, true) ?>;
+            
             fetchProfile(token).then((profile) => {
+                console.log(profile.id)
                 generatePlaylist(token, profile.id, playlistId, songs);
             });
         </script>

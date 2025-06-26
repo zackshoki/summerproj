@@ -1,17 +1,18 @@
 // spotify functions
 spotifyURL = 'https://api.spotify.com/v1/';
 
-async function fetchProfile(token) {
-    const result = await fetch(spotifyURL + "me", {
-        method: "GET",
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
+// shouldnt be used
+// async function fetchProfile(token) {
+//     const result = await fetch(spotifyURL + "me", {
+//         method: "GET",
+//         headers: {
+//             Authorization: `Bearer ${token}`
+//         }
+//     })
 
 
-    return await result.json();
-}
+//     return await result.json();
+// }
 
 function populateUI(profile) {
     document.getElementById("displayName").innerText = profile.display_name;
@@ -29,22 +30,22 @@ function populateUI(profile) {
     document.getElementById("url").setAttribute("href", profile.href);
 }
 
-async function createPlaylist(token, userId, playlistName, playlistDescription) {
-    const result = await fetch(spotifyURL + "users/" + userId + "/playlists", {
-        method: "POST",
-        headers: {
-            "Authorization": "Bearer " + token,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            "name": playlistName,
-            "description": playlistDescription,
-            "public": false
-        })
-    });
+// async function createPlaylist(token, userId, playlistName, playlistDescription) {
+//     const result = await fetch(spotifyURL + "users/" + userId + "/playlists", {
+//         method: "POST",
+//         headers: {
+//             "Authorization": "Bearer " + token,
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify({
+//             "name": playlistName,
+//             "description": playlistDescription,
+//             "public": false
+//         })
+//     });
 
-    return await result.json();
-}
+//     return await result.json();
+// } dont use, uses token
 
 async function updatePlaylist(token, playlistId, songIds) {
     formattedSongIds = songIds.map((songId) => "spotify:track:" + songId);
