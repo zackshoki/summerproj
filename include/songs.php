@@ -59,8 +59,9 @@ function getSongList($min, $max) { // gets all songs with a bpm between the valu
     return $songList;
 }
 
-function constructPlaylist($min, $max, $lengthOfRun) { // GREEDYYYYYOOH algorithm that will randomly shuffle the array given from getSongList and loop through picking a song and adding it to the new songlist until the new song list's length exceeds the length of the run, then returns the new song list
+function constructPlaylist($min, $max, $lengthOfRunInMinutes) { // GREEDYYYYYOOH algorithm that will randomly shuffle the array given from getSongList and loop through picking a song and adding it to the new songlist until the new song list's length exceeds the length of the run, then returns the new song list
     $songList = getSongList($min, $max);
+    $lengthOfRun = $lengthOfRunInMinutes * 60; // minutes to seconds
     shuffle($songList);
     $spotifyIds = [];
     $lengthOfPlaylist = 0; // in seconds

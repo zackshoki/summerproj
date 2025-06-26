@@ -32,8 +32,8 @@
     <div id="uri"></div>
     <div id="url"></div>
     
-    <form id="userData" action="display_playlist.php" method="GET"> 
-        <strong>distance:</strong> <input type="text" id="runtime" name="run_time" value="3"/> miles <br>
+    <form id="userData" action="display_playlist.php" method="POST"> 
+        <strong>distance:</strong> <input type="text" id="runDistance" name="run_distance" value="3"/> miles <br>
         <strong>desired pace:</strong> <input type="text" id="pace" name="pace" value="10"/> min/mi
         <input type="submit" /> 
     </form>

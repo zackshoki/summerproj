@@ -97,7 +97,6 @@ async function getPlaylist(token, playlistId) {
 }
 
 async function generatePlaylist(token, profileId, playlistId, songs) { // songs is an array of spotify ids
-    console.log("hello");
     if (playlistId == "") {
         const playlist = await createPlaylist(token, profileId, "ZackCorp Workout Playlist", "this a test playlist");
         // access playlist attributes here if needed
@@ -110,10 +109,3 @@ async function generatePlaylist(token, profileId, playlistId, songs) { // songs 
     }
 }
 
-function paceToTempo($pace) { // running cadence calculations... potentiallly have an option for runners to either enter their height, enter their steps per minute, or link their strava for more accurate calculations
-
-}
-
-function distanceToMinutes($distance, $pace) {
-
-}

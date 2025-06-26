@@ -1,13 +1,15 @@
 <?php
     include('include/init.php');
     $token = tokenSetup();
-   debugOutput($_REQUEST);
+    debugOutput($_REQUEST);
     if (isset($_POST['playlistId'])) { // ajax could be used here.. but is it needed?
         sendPlaylistIdToDB($_POST['playlistId'], 1); // userId is hardcoded for now
         unset($_POST['playlistId']);
     }
     $playlistId = checkIfPlaylistExists(1)['playlistId'];
-    $songs = constructPlaylist(90, 100, 30*60);
+    $minutes = distanceToMinutes($_POST['run_distance'], $_POST['pace']);
+    $tempo = paceToTempo($_POST['pace']);
+    $songs = constructPlaylist($tempo - 10, $tempo + 10, $minutes);
     
   
 ?>

@@ -17,13 +17,13 @@
         ")->fetch();
         return $user;
     }
-    function getCadence($userId) {
-        $user = dbQuery("
-            SELECT cadence
+    function getStrideLength($userId) { // in meters, further gain accuracy by separating into walking stride length, jog stride length, run stride length, sprint stride length etc. 
+        $stride_length = dbQuery("
+            SELECT stride_length
             FROM users
             WHERE userId = $userId 
         ")->fetch();
-        return $user;
+        return $stride_length;
     }
     function checkIfPlaylistExists($userId) {
         $playlistId = dbQuery("
