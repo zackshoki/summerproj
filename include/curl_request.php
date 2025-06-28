@@ -41,7 +41,7 @@ function makeSpotifyPostRequest($token, $url, $postData) {
     curl_setopt_array($spotify_curl, $spotify_curl_options);
     $data_json = curl_exec($spotify_curl);
     $data = json_decode($data_json, true);
-    debugOutput($data);
+    
     return $data; 
 }
 

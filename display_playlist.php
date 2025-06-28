@@ -8,11 +8,14 @@
     }
     $playlistId = checkIfPlaylistExists(1);
     debugOutput(['playlistId' => $playlistId]);
-    die;
+    $distance = $_POST['run_distance'];
+    $pace = $_POST['pace'];
     $minutes = distanceToMinutes($_POST['run_distance'], $_POST['pace']);
     $tempo = paceToTempo($_POST['pace']);
+    $profileId = json_decode(getSpotifyProfile(1), true)['id'];
     $songs = constructPlaylist($tempo - 10, $tempo + 10, $minutes);
-    
+ 
+    generatePlaylist($playlistId, $profileId, $songs, "zack's run playlist", "$distance miles, $pace min/mile");
   
 ?>
 
@@ -26,11 +29,8 @@
             const profile = <?php echo getSpotifyProfile(1); ?>;
             const playlistId = "<?php echo $playlistId ?>";
             const songs = <?php echo json_encode($songs, true) ?>;
+
             
-            fetchProfile(token).then((profile) => {
-                console.log(profile.id)
-                generatePlaylist(token, profile.id, playlistId, songs);
-            });
         </script>
     </head>
 
