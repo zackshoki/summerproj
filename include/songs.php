@@ -67,7 +67,7 @@ function constructPlaylist($min, $max, $lengthOfRunInMinutes) { // GREEDYYYYYOOH
     $lengthOfPlaylist = 0; // in seconds
     $i = 0;
 
-    while ($lengthOfPlaylist < $lengthOfRun) {
+    while ($lengthOfPlaylist < $lengthOfRun) { // needs error handling for if theres not enough songs
         $lengthOfPlaylist = $lengthOfPlaylist+$songList[$i]['length'];
         $spotifyIds[] =  $songList[$i]['spotifyId'];
         $i++;

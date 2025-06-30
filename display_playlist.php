@@ -12,10 +12,10 @@
     $pace = $_POST['pace'];
     $minutes = distanceToMinutes($_POST['run_distance'], $_POST['pace']);
     $tempo = paceToTempo($_POST['pace']);
-    $profileId = json_decode(getSpotifyProfile(1), true)['id'];
+    // $profileId = json_decode(getSpotifyProfile(1), true)['id'];
     $songs = constructPlaylist($tempo - 10, $tempo + 10, $minutes);
  
-    generatePlaylist($playlistId, $profileId, $songs, "zack's run playlist", "$distance miles, $pace min/mile");
+    generatePlaylist($playlistId, $songs, "zack's run", $distance, $pace);
   
 ?>
 

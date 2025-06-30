@@ -16,7 +16,7 @@ function createPlaylist($name, $description) {
     return $playlist['id'];
 }
 
-function updatePlaylist($playlistId, $songIds) {
+function updatePlaylist($playlistId, $songIds, $runDistance, $pace, $name = "default workout playlist") {
     $token = tokenSetup();
     $formmattedSongIds =  [];
     foreach ($songIds as $songId) {
@@ -40,6 +40,25 @@ function updatePlaylist($playlistId, $songIds) {
     curl_setopt_array($spotify_curl, $spotify_curl_options);
     $data_json = curl_exec($spotify_curl);
     $data = json_decode($data_json, true);
+
+    $url = 'https://api.spotify.com/v1/playlists/'.$playlistId;
+    $spotify_curl = curl_init();
+    $postData = json_encode([
+        'name' => $name, 
+        'description' => "$runDistance miles, $pace min/mi pace"
+    ]);
+    $spotify_curl_options = [
+        CURLOPT_URL => $url,
+        CURLOPT_HTTPHEADER => [
+            'Authorization: Bearer '.$token
+        ],
+        CURLOPT_CUSTOMREQUEST => "PUT",
+        CURLOPT_POSTFIELDS => $postData
+
+    ];
+    curl_setopt_array($spotify_curl, $spotify_curl_options);
+    curl_exec($spotify_curl);
+
     return $data;    
 }
 
@@ -88,7 +107,7 @@ function getPlaylist($playlistId) {
     return spotifyGetRequest(tokenSetup(), $spotifyURL."playlists/". $playlistId, "");
 }
 
-function generatePlaylist($playlistId, $profileId, $songIds, $name, $description) {
-        clearPlaylist($playlistId);
-        updatePlaylist($playlistId, $songIds); // add a description and name updator
+function generatePlaylist($playlistId, $songIds, $name, $runDistance, $pace) {
+        clearPlaylist($playlistId); 
+        updatePlaylist($playlistId, $songIds, $runDistance, $pace, $name); // add a description and name updator
 }
