@@ -1,18 +1,14 @@
 <?php
     include('include/init.php');
-    $token = tokenSetup();
-    debugOutput($_REQUEST);
-    if (isset($_POST['playlistId'])) { // ajax could be used here.. but is it needed?
-        sendPlaylistIdToDB($_POST['playlistId'], 1); // userId is hardcoded for now
-        unset($_POST['playlistId']);
-    }
-    $playlistId = checkIfPlaylistExists(1);
-    debugOutput(['playlistId' => $playlistId]);
+    $token = tokenSetup(); 
+    $playlistId = checkIfPlaylistExists(1); // userId is hardcoded
+
     $distance = $_POST['run_distance'];
     $pace = $_POST['pace'];
+
     $minutes = distanceToMinutes($_POST['run_distance'], $_POST['pace']);
     $tempo = paceToTempo($_POST['pace']);
-    // $profileId = json_decode(getSpotifyProfile(1), true)['id'];
+
     $songs = constructPlaylist($tempo - 10, $tempo + 10, $minutes);
  
     generatePlaylist($playlistId, $songs, "zack's run", $distance, $pace);

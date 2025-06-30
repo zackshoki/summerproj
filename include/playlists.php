@@ -41,18 +41,14 @@ function updatePlaylist($playlistId, $songIds, $runDistance, $pace, $name = "def
     $data_json = curl_exec($spotify_curl);
     $data = json_decode($data_json, true);
 
+    // update description and name 
     $url = 'https://api.spotify.com/v1/playlists/'.$playlistId;
-    $spotify_curl = curl_init();
     $postData = json_encode([
         'name' => $name, 
         'description' => "$runDistance miles, $pace min/mi pace"
     ]);
     $spotify_curl_options = [
         CURLOPT_URL => $url,
-        CURLOPT_HTTPHEADER => [
-            'Authorization: Bearer '.$token
-        ],
-        CURLOPT_CUSTOMREQUEST => "PUT",
         CURLOPT_POSTFIELDS => $postData
 
     ];
@@ -99,7 +95,7 @@ function clearPlaylist($playlistId) {
         
         return $data;
     }
-    // to-do
+  
 }
 
 function getPlaylist($playlistId) {
