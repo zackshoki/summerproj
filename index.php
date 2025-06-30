@@ -3,7 +3,7 @@
 
     if (!isset($_COOKIE['spotify_token'])) { 
         if (isset($_REQUEST['code']) && isset($_REQUEST['state'])) {
-            $token = requestAccessToken($_REQUEST['code'], $_REQUEST['state']); 
+            $token = requestAccessToken($_REQUEST['code'], $_REQUEST['state'], getClientId(), getClientSecret()); 
         } else {
             header('Location: login.php'); // work on refresh tokens in the future. 
         }   

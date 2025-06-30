@@ -2,9 +2,8 @@
 
 $redirect_uri = 'http://[::1]:8888/index.php';
 
-function requestUserAuthorization()
+function requestUserAuthorization($client_id)
 { // for user authorization
-    global $client_id; // probably should be stored in a different way? maybe should be a parameter in this function and stored in the db?
     global $redirect_uri;
     $scopes = 'ugc-image-upload%20user-modify-playback-state%20playlist-read-private%20playlist-read-collaborative%20playlist-modify-private%20playlist-modify-public%20user-top-read%20user-read-recently-played%20user-library-modify%20user-library-read%20user-read-email%20user-read-private';
     global $state;
@@ -14,9 +13,9 @@ function requestUserAuthorization()
     header("Location: $url");
 }
 
-function requestAccessToken($code, $givenState)
+function requestAccessToken($code, $givenState, $client_id, $client_secret)
 {
-    global $state, $redirect_uri, $client_id, $client_secret, $refresh_token;
+    global $state, $redirect_uri, $refresh_token;
     if (false) { // polish later; this should be a state checker, but i cannot figure out how to do it right, so we will just pretend that the state's are equal
         echo "ERROR state does not match given state";
     } else {
