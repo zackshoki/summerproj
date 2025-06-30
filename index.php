@@ -3,7 +3,7 @@
 
     if (!isset($_COOKIE['spotify_token'])) { 
         if (isset($_REQUEST['code']) && isset($_REQUEST['state'])) {
-            $token = requestAccessToken($_REQUEST['code'], $_REQUEST['state']); 
+            $token = requestAccessToken($_REQUEST['code'], $_REQUEST['state'], getClientId(), getClientSecret()); 
         } else {
             header('Location: login.php'); // work on refresh tokens in the future. 
         }   
@@ -11,12 +11,17 @@
         $token = $_COOKIE['spotify_token'];
     }
 
+
     if (isset($_GET['playlistId'])) { // ajax could be used here.. but is it needed?
         sendPlaylistIdToDB($_GET['playlistId'], 1); // userId is hardcoded for now
         unset($_GET['playlistId']);
     }
     // saveTracksToDB(); this was commented out to make reloads faster. still havent found a good way to save all your songs to the db at once. 
     $playlistId = checkIfPlaylistExists(1)['playlistId'];
+
+    setTotalSongs(1); // userId is hardcoded
+    saveTracksToDB();
+
 ?>
 
 <html>

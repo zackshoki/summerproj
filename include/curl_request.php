@@ -1,11 +1,12 @@
 <?php
-global $total;
-function spotifyGetRequest($token, $url, $formatted_fields) 
+
+
+function makeSpotifyGetRequest($token, $url, $formatted_fields) 
 {
     $spotify_curl = curl_init();
-
+    $spotifyURL = "https://api.spotify.com/v1/";
     $spotify_curl_options = [
-        CURLOPT_URL => $url."?".$formatted_fields,
+        CURLOPT_URL => $spotifyURL.$url."?".$formatted_fields,
         CURLOPT_HTTPHEADER => [
             'Authorization: Bearer '.$token
         ],
@@ -14,35 +15,31 @@ function spotifyGetRequest($token, $url, $formatted_fields)
 
     ];
 
-    curl_setopt_array($spotify_curl, $spotify_curl_options);
-    $data_json = curl_exec($spotify_curl);
-    $data = json_decode($data_json, true);
+    $data = runCurlRequest($spotify_curl, $spotify_curl_options);
     return $data; 
     
 }
 function totalSavedTracks() {
     global $token;
-    global $total;
-    $tracksInfo = spotifyGetRequest($token, 'https://api.spotify.com/v1/me/tracks', "limit=1");
-
-    $total = $tracksInfo['total'];
+    $tracksInfo = makeSpotifyGetRequest($token, 'me/tracks', "limit=1");
+    return $tracksInfo['total'];
 }
 function getAllSavedTracks() { 
-    global $total, $token;
-    $totalTracks = $total;
+    global $token;
+    $totalTracks = getTotalSongs(1); // userId is hardcoded
     $loopNumber = ($totalTracks - ($totalTracks % 50)) / 50;
     $remainderTracks = $totalTracks % 50;
     
     $trackIds = [];
     for ($i = 0; $i < $loopNumber; $i++) {
-        $trackDatas = spotifyGetRequest($token, 'https://api.spotify.com/v1/me/tracks', "limit=50&offset=".($i*50));
+        $trackDatas = makeSpotifyGetRequest($token, 'me/tracks', "limit=50&offset=".($i*50));
         $tracks = $trackDatas['items'];
         foreach ($tracks as $track) {
             array_push($trackIds, $track['track']['id']);
         }
     }
     if ($remainderTracks > 0) {
-        $trackDatas = spotifyGetRequest($token, 'https://api.spotify.com/v1/me/tracks', "limit=$remainderTracks&offset=".($totalTracks - ($totalTracks % 50)));
+        $trackDatas = makeSpotifyGetRequest($token, 'me/tracks', "limit=$remainderTracks&offset=".($totalTracks - ($totalTracks % 50)));
         $tracks = $trackDatas['items'];
         foreach ($tracks as $track) {
           array_push($trackIds, $track['track']['id']);
@@ -53,43 +50,26 @@ function getAllSavedTracks() {
 
 // reccobeats
 $reccoURL = 'https://api.reccobeats.com/v1/';
-
-function spotifyIdsToReccoData($spotifyIds) { // like the above function but instead of taking a singular id it takes multiple. reccobeats can only process 40 ids at a time 
+function runCurlRequest($curl, $curl_options) {
+    curl_setopt_array($curl, $curl_options);
+    $data_json = curl_exec($curl);
+    $data = json_decode($data_json, true);
+    return $data;
+}
+function spotifyIdsToReccoData($spotifyIds) { 
     global $reccoURL;
     $curl = curl_init(); 
     $reccoIds = [];
 
-    $totalTracks = count($spotifyIds);
-    $loopNumber = ($totalTracks - ($totalTracks % 40)) / 40;
-    $remainderTracks = $totalTracks % 40;
-    for ($i = 0; $i < $loopNumber; $i++) {
+    foreach (array_chunk($spotifyIds, 40) as $chunk) {
         $curl_options = [
-            CURLOPT_URL => $reccoURL."track?ids=".implode(",", array_slice($spotifyIds, ($i*40), 40)),
+            CURLOPT_URL => $reccoURL."track?ids=".implode(",", $chunk),
             CURLOPT_HTTPHEADER => [
                 'Accept: application/json'
             ],
             CURLOPT_RETURNTRANSFER => TRUE,
         ];
-        curl_setopt_array($curl, $curl_options);
-        $data_json = curl_exec($curl);
-        $data = json_decode($data_json, true);
-        foreach ($data['content'] as $track) {
-            $songId = $track['id'];
-            $reccoIds[$songId] = $track;
-        }
-    }
-
-    if ($remainderTracks > 0) {
-        $curl_options = [
-            CURLOPT_URL => $reccoURL."track?ids=".implode(",", array_slice($spotifyIds, ($totalTracks - ($totalTracks % 40)) , $remainderTracks)), // there could be an off by one issue here
-            CURLOPT_HTTPHEADER => [
-                'Accept: application/json'
-            ],
-            CURLOPT_RETURNTRANSFER => TRUE,
-        ];
-        curl_setopt_array($curl, $curl_options);
-        $data_json = curl_exec($curl);
-        $data = json_decode($data_json, true); 
+        $data = runCurlRequest($curl, $curl_options);
         foreach ($data['content'] as $track) {
             $songId = $track['id'];
             $reccoIds[$songId] = $track;
@@ -98,6 +78,7 @@ function spotifyIdsToReccoData($spotifyIds) { // like the above function but ins
 
     return $reccoIds;
 }
+
 function analyzeTracks($tracks) { // takes an array of track metadata like the one returned from spotifyIdsToReccoData and gets the audio analysis from each one 
     global $reccoURL; 
     $curl = curl_init(); 
@@ -112,12 +93,9 @@ function analyzeTracks($tracks) { // takes an array of track metadata like the o
             CURLOPT_RETURNTRANSFER => TRUE,
             
         ];
-        curl_setopt_array($curl, $curl_options);
-        $data_json = curl_exec($curl);
-        $data = json_decode($data_json, true); 
+        $data = runCurlRequest($curl, $curl_options);
 
         array_push($tracksFeatures, $data);
     }
     return $tracksFeatures;
 }
-?>

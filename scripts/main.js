@@ -1,5 +1,5 @@
 // spotify functions
-spotifyURL = 'https://api.spotify.com/v1/';
+const spotifyURL = 'https://api.spotify.com/v1/';
 
 async function fetchProfile(token) {
     const result = await fetch(spotifyURL + "me", {
@@ -28,6 +28,7 @@ function populateUI(profile) {
     document.getElementById("url").innerText = profile.href;
     document.getElementById("url").setAttribute("href", profile.href);
 }
+
 
 async function createPlaylist(token, userId, playlistName, playlistDescription) {
     const result = await fetch(spotifyURL + "users/" + userId + "/playlists", {
@@ -109,3 +110,4 @@ async function generatePlaylist(token, profileId, playlistId) {
 
     }
 }
+

@@ -17,6 +17,7 @@
         ")->fetch();
         return $user;
     }
+
     function checkIfPlaylistExists($userId) {
         $playlistId = dbQuery("
             SELECT playlistId FROM users WHERE userId='$userId'
@@ -31,4 +32,19 @@
         dbQuery("
             UPDATE users SET playlistId='$playlistId' WHERE userId='$userId'
         ");
+
+
+    function setTotalSongs($userId) {
+        $total = totalSavedTracks();
+        dbQuery(" 
+        UPDATE users SET total_songs ='$total' WHERE userId=$userId
+        ");
+    }
+
+    function getTotalSongs($userId) {
+        $total = dbQuery("
+        SELECT total_songs FROM users WHERE userId=$userId
+        ")->fetch()['total_songs']; 
+        return $total; 
+
     }
