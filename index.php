@@ -10,6 +10,7 @@
     } else {
         $token = $_COOKIE['spotify_token'];
     }
+    setTotalSongs(1); // userId is hardcoded
     saveTracksToDB();
 ?>
 <html>

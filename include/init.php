@@ -3,6 +3,7 @@
     session_start();
 
     include('connect.php');
+    include('config.php');
     include('common_components.php');
     include('db_query.php');
     include('helper_functions.php');

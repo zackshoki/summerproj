@@ -17,3 +17,17 @@
         ")->fetch();
         return $user;
     }
+
+    function setTotalSongs($userId) {
+        $total = totalSavedTracks();
+        dbQuery(" 
+        UPDATE users SET total_songs ='$total' WHERE userId=$userId
+        ");
+    }
+
+    function getTotalSongs($userId) {
+        $total = dbQuery("
+        SELECT total_songs FROM users WHERE userId=$userId
+        ")->fetch()['total_songs']; 
+        return $total; 
+    }

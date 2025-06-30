@@ -1,5 +1,5 @@
 <?php
-global $total;
+
 
 function makeSpotifyGetRequest($token, $url, $formatted_fields) 
 {
@@ -20,15 +20,13 @@ function makeSpotifyGetRequest($token, $url, $formatted_fields)
     
 }
 function totalSavedTracks() {
-    global $token, $total;
-    
+    global $token;
     $tracksInfo = makeSpotifyGetRequest($token, 'me/tracks', "limit=1");
-
-    $total = $tracksInfo['total'];
+    return $tracksInfo['total'];
 }
 function getAllSavedTracks() { 
-    global $total, $token;
-    $totalTracks = $total;
+    global $token;
+    $totalTracks = getTotalSongs(1); // userId is hardcoded
     $loopNumber = ($totalTracks - ($totalTracks % 50)) / 50;
     $remainderTracks = $totalTracks % 50;
     

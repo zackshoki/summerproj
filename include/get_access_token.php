@@ -2,11 +2,6 @@
 
 $redirect_uri = 'http://[::1]:8888/index.php';
 
-$client_id = 'e222be8a405045a79868de716b5aef44';   // look down
-$client_secret = 'd48a28f221264ee8bfe3ad63c33006be'; // these should definitely be stored differently, maybe in the db? 
-
-$refresh_token; // must store in db
-
 function requestUserAuthorization()
 { // for user authorization
     global $client_id; // probably should be stored in a different way? maybe should be a parameter in this function and stored in the db?

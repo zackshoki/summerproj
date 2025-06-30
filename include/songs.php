@@ -44,7 +44,7 @@ function storeTrackData($fullTrackData)
         $tempo = floatval($track['tempo']);
         $spotifyId = $pdo->quote($track['spotifyId']);
         $reccoId = $pdo->quote($track['reccoId']);
-        $length = $pdo->quote($track['length']); // in seconds
+        $length = $track['length']; // in seconds
 
         $rows[] = "($name, $artist, $tempo, $spotifyId, $reccoId, $length)";
     }
