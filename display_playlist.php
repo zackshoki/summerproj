@@ -21,19 +21,19 @@
         <title>Playlist</title>
         <link rel="stylesheet" href="stylesheets/styles.css">
         <script type="text/javascript" src="scripts/main.js"></script>
-        <script defer>
-            const profile = <?php echo getSpotifyProfile(1); ?>;
-            const playlist = <?php echo $playlist_json; ?>; 
-            const songs = <?php echo json_encode($songs, true) ?>;
-            
-        </script>
+        
     </head>
 
     <body> 
-        <form id="form" action="display_playlist.php" method="post">
-            <input type="text" id="playlistId" style="display:none" value="" name="playlistId"/>
-            <input type="submit" style="display:none"/> 
-        </form>
+        <div id="playlistName"></div>
+        <div id="playlistImage"></div>
+        <div id="songNames"></div> 
+        <script>
+            const profile = <?php echo getSpotifyProfile(1); ?>;
+            const playlist = <?php echo $playlist_json; ?>; 
+            const songs = <?php echo json_encode($songs, true) ?>;
+            showPlaylist(playlist);
+        </script>
     </body>
 </html>
 
