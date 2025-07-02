@@ -1,6 +1,7 @@
 <?php
     include('include/init.php');
     tokenSetup();
+    setTotalSongs(1); // userId is hardcoded
     // saveTracksToDB(); // this was commented out to make reloads faster. still havent found a good way to save all your songs to the db at once. 
 ?>
 

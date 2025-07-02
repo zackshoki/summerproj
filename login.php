@@ -1,3 +1,4 @@
 <?php
 include('include/init.php');
-requestUserAuthorization();
+
+requestUserAuthorization(getClientId());

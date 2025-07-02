@@ -1,6 +1,4 @@
 // spotify functions
-const spotifyURL = 'https://api.spotify.com/v1/';
-
 function populateUI(profile) {
     document.getElementById("displayName").innerText = profile.display_name;
     if (profile.images[0]) {
@@ -33,5 +31,4 @@ function showPlaylist(playlist) {
     document.getElementById("songNames").innerText = JSON.stringify(songNames);
     document.title = playlist.name;
 }
-
 
