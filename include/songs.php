@@ -53,6 +53,10 @@ function storeTrackData($fullTrackData) { // takes in array of full track data t
 
 function getSongList($min, $max) { // gets all songs with a bpm between the values given and returns their spotifyids in an array format, store the length values of each song in the array as well
     // this function should probably take both half-times (divide by 2) and double-times (multiply by 2) of the given min and max to account for clear issues of tempo calculations
+    if ($min < 0) {
+        $min = 0; 
+    }
+    
     $songList = dbQuery("
         SELECT spotifyId, length FROM songs WHERE tempo > $min AND tempo < $max 
     ")->fetchAll(); // potentially take tempo and name and display these in some way?
@@ -67,11 +71,21 @@ function constructPlaylist($min, $max, $lengthOfRunInMinutes) { // GREEDYYYYYOOH
     $lengthOfPlaylist = 0; // in seconds
     $i = 0;
 
-    while ($lengthOfPlaylist < $lengthOfRun) { // needs error handling for if theres not enough songs
-        $lengthOfPlaylist = $lengthOfPlaylist+$songList[$i]['length'];
-        $spotifyIds[] =  $songList[$i]['spotifyId'];
+    while ($lengthOfPlaylist < $lengthOfRun) {  // main loop
+        $lengthOfPlaylist = $lengthOfPlaylist + ($songList[$i]['length'] ?? 0);
+        $spotifyIds[] =  $songList[$i]['spotifyId'] ?? NULL;
         $i++;
+        if ($i >= count($songList)) { // if there's not enough songs at a certain tempo range, expand to diff tempos
+            $min = $min - 10;  
+            $songList = array_merge(getSongList($min, $min+10), getSongList($max, $max+10));
+            $max = $max + 10; 
+            $i = 0; 
+        } else if ($min < 0 && $max > 300) {// error handling
+            echo "ERROR, please save more songs for a run this long!";
+        } 
     }
+    $spotifyIds = array_filter($spotifyIds);
+    shuffle($spotifyIds);
 
     return $spotifyIds;
 }
