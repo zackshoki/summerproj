@@ -33,7 +33,6 @@
             SELECT profile FROM users WHERE userId='$userId'
         ")->fetch()['profile'];
 
-        // $profile = json_decode($profile_json, true);
         return $profile_json;
     }   
     function getStrideLength($userId) { // in meters, further gain accuracy by separating into walking stride length, jog stride length, run stride length, sprint stride length etc. 

@@ -46,14 +46,15 @@ function makeSpotifyPostRequest($token, $url, $postData) {
 }
 
 function totalSavedTracks() {
-    global $token;
+    $token = tokenSetup(); 
     global $total;
     $tracksInfo = spotifyGetRequest($token, 'https://api.spotify.com/v1/me/tracks', "limit=1");
 
     $total = $tracksInfo['total'];
 }
 function getAllSavedTracks() { 
-    global $total, $token;
+    global $total;
+    $token = tokenSetup();
     $totalTracks = $total;
     $loopNumber = ($totalTracks - ($totalTracks % 50)) / 50;
     $remainderTracks = $totalTracks % 50;

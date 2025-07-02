@@ -12,7 +12,7 @@
     $songs = constructPlaylist($tempo - 10, $tempo + 10, $minutes);
  
     generatePlaylist($playlistId, $songs, "zack's run", $distance, $pace);
-  
+    $playlist_json = json_encode(getPlaylist($playlistId)); 
 ?>
 
 <html> 
@@ -23,9 +23,8 @@
         <script type="text/javascript" src="scripts/main.js"></script>
         <script defer>
             const profile = <?php echo getSpotifyProfile(1); ?>;
-            const playlistId = "<?php echo $playlistId ?>";
+            const playlist = <?php echo $playlist_json; ?>; 
             const songs = <?php echo json_encode($songs, true) ?>;
-
             
         </script>
     </head>
