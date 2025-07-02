@@ -60,6 +60,22 @@ function getSongList($min, $max) { // gets all songs with a bpm between the valu
     $songList = dbQuery("
         SELECT spotifyId, length FROM songs WHERE tempo > $min AND tempo < $max 
     ")->fetchAll(); // potentially take tempo and name and display these in some way?
+
+    $max2 = $max*2; 
+    $min2 = $min*2; 
+
+    $songListDoubleTime = dbQuery(" 
+        SELECT spotifyId, length FROM songs WHERE tempo > $min2 AND tempo < $max2 
+    ")->fetchAll() ?? NULL;
+
+    $maxHalf = $max/2; 
+    $minHalf = $min/2; 
+
+    $songListHalfTime = dbQuery("
+        SELECT spotifyId, length FROM songs WHERE tempo > $minHalf AND tempo < $maxHalf 
+    ")->fetchAll() ?? NULL;
+
+    $songList = array_filter(array_merge($songList, $songListDoubleTime, $songListHalfTime));
     return $songList;
 }
 
