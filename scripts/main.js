@@ -22,13 +22,14 @@ function showPlaylist(playlist) {
     if (playlist.images[0]) {
         const playlistImage = new Image(200, 200);
         playlistImage.src = playlist.images[0].url;
-        document.getElementById("playlistImage").appendChild(profileImage);
-        document.getElementById("playlistImageURL").innerText = profile.images[0].url;
+        document.getElementById("playlistImage").appendChild(playlistImage);
+        // document.getElementById("playlistImageURL").innerText = playlist.images[0].url;
     }
     let songNames = []; 
     playlist.tracks.items.forEach((item) => {
         songNames.push(item.track.name + " - " + item.track.artists[0].name); 
     });
+
     document.getElementById("songNames").innerText = JSON.stringify(songNames);
     document.title = playlist.name;
 }

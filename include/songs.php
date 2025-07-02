@@ -86,22 +86,26 @@ function constructPlaylist($min, $max, $lengthOfRunInMinutes) { // GREEDYYYYYOOH
     $spotifyIds = [];
     $lengthOfPlaylist = 0; // in seconds
     $i = 0;
-
     while ($lengthOfPlaylist < $lengthOfRun) {  // main loop
-        $lengthOfPlaylist = $lengthOfPlaylist + ($songList[$i]['length'] ?? 0);
-        $spotifyIds[] =  $songList[$i]['spotifyId'] ?? NULL;
+        if (!in_array($songList[$i]['spotifyId'], $spotifyIds, true)) {
+            $lengthOfPlaylist = $lengthOfPlaylist + ($songList[$i]['length'] ?? 0);
+            $spotifyIds[] =  $songList[$i]['spotifyId'] ?? NULL;
+            
+        }
         $i++;
         if ($i >= count($songList)) { // if there's not enough songs at a certain tempo range, expand to diff tempos
             $min = $min - 10;  
             $songList = array_merge(getSongList($min, $min+10), getSongList($max, $max+10));
             $max = $max + 10; 
             $i = 0; 
-        } else if ($min < 0 && $max > 300) {// error handling
-            echo "ERROR, please save more songs for a run this long!";
+        } else if ($min < 0 && $max > 300) { // error handling
+            echo "ERROR, please save more songs for a run this long! <br>";
+            echo "<a href='index.php'>retry?</a>";
+            die;
         } 
     }
+    
     $spotifyIds = array_filter($spotifyIds);
     shuffle($spotifyIds);
-
     return $spotifyIds;
 }

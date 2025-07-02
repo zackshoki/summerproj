@@ -8,7 +8,7 @@ function createPlaylist($name, $description) {
         "public" => false
     ];
 
-    $user = getUser(1);
+    $user = getUser(1); // userId is hardcoded
     $userId = $user['userId'];
 
     $playlist = makeSpotifyPostRequest($token, "users/317xhhb2qgw32elx7ebxeltoadb4/playlists", $postData);
@@ -23,23 +23,30 @@ function updatePlaylist($playlistId, $songIds, $runDistance, $pace, $name = "def
         $formmattedSongIds[] = "spotify:track:".$songId;
     }
 
-    $url = 'https://api.spotify.com/v1/playlists/'.$playlistId.'/tracks?uris='.implode(",", $formmattedSongIds);
+    $url = 'https://api.spotify.com/v1/playlists/'.$playlistId.'/tracks';
+
+    $formattedSongChunks = array_chunk($formmattedSongIds, 100);
    
     $spotify_curl = curl_init();
-
+    
     $spotify_curl_options = [
         CURLOPT_URL => $url,
         CURLOPT_HTTPHEADER => [
-            'Authorization: Bearer '.$token
+            'Authorization: Bearer '.$token,
+            'Content-Type: application/json'
         ],
-        CURLOPT_CUSTOMREQUEST => "PUT",
-        CURLOPT_RETURNTRANSFER => TRUE
-
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_RETURNTRANSFER => TRUE,
     ];
 
-    curl_setopt_array($spotify_curl, $spotify_curl_options);
-    $data_json = curl_exec($spotify_curl);
-    $data = json_decode($data_json, true);
+    foreach($formattedSongChunks as $chunk) {
+        $postData = json_encode([
+            'uris' => $chunk
+        ]);
+        $spotify_curl_options[CURLOPT_POSTFIELDS] = $postData;
+        curl_setopt_array($spotify_curl, $spotify_curl_options);
+        curl_exec($spotify_curl);
+    }
 
     // update description and name 
     $url = 'https://api.spotify.com/v1/playlists/'.$playlistId;
@@ -54,48 +61,33 @@ function updatePlaylist($playlistId, $songIds, $runDistance, $pace, $name = "def
     ];
     curl_setopt_array($spotify_curl, $spotify_curl_options);
     curl_exec($spotify_curl);
-
-    return $data;    
 }
 
 function clearPlaylist($playlistId) {
     $token = tokenSetup(); 
-
-    $playlist = getPlaylist($playlistId); 
-    
-    $songURIs =  [];
-    foreach ($playlist['tracks']['items'] as $item) {
-        $songURIs[]['uri'] = $item['track']['uri'];
-    }
-
-    $json = json_encode($songURIs);
-
     $postData = json_encode([
-        'tracks' => $json
+        'uris' => []
     ]);
 
-    if ($songURIs != []) {
-        $spotify_curl = curl_init();
-        $url = "https://api.spotify.com/v1/playlists/$playlistId/tracks";
+    $spotify_curl = curl_init();
+    $url = "https://api.spotify.com/v1/playlists/$playlistId/tracks";
+
+    $spotify_curl_options = [
+        CURLOPT_URL => $url,
+        CURLOPT_HTTPHEADER => [
+            'Authorization: Bearer '.$token,
+            'Content-Type: application/json'
+        ],
+        CURLOPT_CUSTOMREQUEST => 'PUT',
+        CURLOPT_RETURNTRANSFER => TRUE,
+        CURLOPT_POSTFIELDS => $postData
+    ];
+
+    curl_setopt_array($spotify_curl, $spotify_curl_options);
+    $data_json = curl_exec($spotify_curl);
+    $data = json_decode($data_json, true);
     
-        $spotify_curl_options = [
-            CURLOPT_URL => $url,
-            CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer '.$token,
-                'Content-Type: application/json'
-            ],
-            CURLOPT_CUSTOMREQUEST => 'DELETE',
-            CURLOPT_RETURNTRANSFER => TRUE,
-            CURLOPT_POSTFIELDS => $postData
-        ];
-    
-        curl_setopt_array($spotify_curl, $spotify_curl_options);
-        $data_json = curl_exec($spotify_curl);
-        $data = json_decode($data_json, true);
-        
-        return $data;
-    }
-  
+    return $data;
 }
 
 function getPlaylist($playlistId) {
@@ -104,6 +96,6 @@ function getPlaylist($playlistId) {
 }
 
 function generatePlaylist($playlistId, $songIds, $name, $runDistance, $pace) {
-        clearPlaylist($playlistId); 
-        updatePlaylist($playlistId, $songIds, $runDistance, $pace, $name); // add a description and name updator
+    clearPlaylist($playlistId); 
+    updatePlaylist($playlistId, $songIds, $runDistance, $pace, $name); 
 }

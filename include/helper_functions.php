@@ -8,8 +8,6 @@
         $strideLength = getStrideLength(1); // userId is hard coded for now. stride length is in meters
         $tempo = 1609.34/(floatval($pace)*floatval($strideLength)); // accuracy could definitely be improved
         return $tempo;
-        
-        // stride lenght is in meters, tempo is in 
     }
     
     function distanceToMinutes($distance, $pace) { // distance is in miles, pace is in minutes per mile

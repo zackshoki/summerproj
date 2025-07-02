@@ -17,7 +17,7 @@
         ")->fetch();
         return $user;
     }
-    function setUserSpotifyId($token, $userId) { // takes in my user's id and sends their spotify id to the db
+    function setUserSpotifyId($token, $userId) { // takes in my user's id and sends their spotify id & profile to the db
         $profile = spotifyGetRequest($token, 'https://api.spotify.com/v1/me', "");
         $spotify_id = $profile['id'];
         

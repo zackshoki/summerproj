@@ -29,7 +29,7 @@
         <div id="playlistImage"></div>
         <div id="songNames"></div> 
         <script>
-            const profile = <?php echo getSpotifyProfile(1); ?>;
+            const profile = <?php echo getSpotifyProfile(1); // userId is hardcoded ?>;
             const playlist = <?php echo $playlist_json; ?>; 
             const songs = <?php echo json_encode($songs, true) ?>;
             showPlaylist(playlist);
