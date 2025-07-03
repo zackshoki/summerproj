@@ -91,7 +91,7 @@ function constructPlaylist($min, $max, $lengthOfRunInMinutes) { // GREEDYYYYYOOH
     $lengthOfPlaylist = 0; // in seconds
     $i = 0;
     while ($lengthOfPlaylist < $lengthOfRun) {  // main loop
-        if (!in_array($songList[$i]['spotifyId'], $spotifyIds, true)) {
+        if (isset($songList[$i]['spotifyId']) && !in_array($songList[$i]['spotifyId'], $spotifyIds, true)) {
             $lengthOfPlaylist = $lengthOfPlaylist + ($songList[$i]['length'] ?? 0);
             $spotifyIds[] =  $songList[$i]['spotifyId'] ?? NULL;
             
