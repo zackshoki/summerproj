@@ -91,8 +91,7 @@ function clearPlaylist($playlistId) {
 }
 
 function getPlaylist($playlistId) {
-    $spotifyURL = 'https://api.spotify.com/v1/';
-    return makeSpotifyGetRequest(tokenSetup(), $spotifyURL."playlists/". $playlistId, "");
+    return makeSpotifyGetRequest(tokenSetup(), "playlists/". $playlistId, "");
 }
 
 function generatePlaylist($playlistId, $songIds, $name, $runDistance, $pace) {

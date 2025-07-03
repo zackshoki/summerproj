@@ -19,7 +19,7 @@
     }
 
     function setUserSpotifyId($token, $userId) { // takes in my user's id and sends their spotify id & profile to the db
-        $profile = makeSpotifyGetRequest($token, 'https://api.spotify.com/v1/me', "");
+        $profile = makeSpotifyGetRequest($token, 'me', "");
         $spotify_id = $profile['id'];
         
         dbQuery("
@@ -58,10 +58,10 @@
             UPDATE users SET playlistId='$playlistId' WHERE userId='$userId'
         ");
     }
-    function setTotalSongs($userId) {
-        $total = totalSavedTracks();
+    function setTotalSongs($token, $userId) {
+        $total = totalSavedTracks($token);
         dbQuery(" 
-        UPDATE users SET total_songs ='$total' WHERE userId=$userId
+            UPDATE users SET total_songs ='$total' WHERE userId='$userId'
         ");
     }
 

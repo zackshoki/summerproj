@@ -42,8 +42,7 @@ function makeSpotifyPostRequest($token, $url, $postData) {
     return $data; 
 }
 
-function totalSavedTracks() {
-    global $token;
+function totalSavedTracks($token) {
     $tracksInfo = makeSpotifyGetRequest($token, 'me/tracks', "limit=1");
     return $tracksInfo['total'];
 }

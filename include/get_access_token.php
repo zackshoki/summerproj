@@ -2,9 +2,10 @@
 
 $redirect_uri = 'http://[::1]:8888/index.php';
 
-function requestUserAuthorization($client_id)
+function requestUserAuthorization()
 { // for user authorization
     global $redirect_uri;
+    $client_id = getClientId();
     $scopes = 'ugc-image-upload%20user-modify-playback-state%20playlist-read-private%20playlist-read-collaborative%20playlist-modify-private%20playlist-modify-public%20user-top-read%20user-read-recently-played%20user-library-modify%20user-library-read%20user-read-email%20user-read-private';
     global $state;
 
@@ -13,9 +14,11 @@ function requestUserAuthorization($client_id)
     header("Location: $url");
 }
 
-function requestAccessToken($code, $givenState, $client_id, $client_secret)
+function requestAccessToken($code, $givenState)
 {
     global $state, $redirect_uri, $refresh_token;
+    $client_id = getClientId(); 
+    $client_secret = getClientSecret();
     if (false) { // polish later; this should be a state checker, but i cannot figure out how to do it right, so we will just pretend that the state's are equal
         echo "ERROR state does not match given state";
     } else {
