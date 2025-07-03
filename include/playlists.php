@@ -60,7 +60,6 @@ function updatePlaylist($playlistId, $songIds, $runDistance, $pace, $name = "def
 
     ];
     curl_setopt_array($spotify_curl, $spotify_curl_options);
-    curl_exec($spotify_curl);
 }
 
 function clearPlaylist($playlistId) {
