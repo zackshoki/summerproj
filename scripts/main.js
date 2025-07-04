@@ -21,7 +21,6 @@ function showPlaylist(playlist) {
         const playlistImage = new Image(200, 200);
         playlistImage.src = playlist.images[0].url;
         document.getElementById("playlistImage").appendChild(playlistImage);
-        // document.getElementById("playlistImageURL").innerText = playlist.images[0].url;
     }
     let songNames = []; 
     playlist.tracks.items.forEach((item) => {

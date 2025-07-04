@@ -20,9 +20,9 @@ function makeSpotifyGetRequest($token, $url, $formatted_fields)
     
 }
 
-function makeSpotifyPostRequest($token, $url, $postData) {
+function makeSpotifyPostRequest($token, $url, $postData, $putRequest = false) {
     $spotify_curl = curl_init();
-    global $spotifyURL;
+    $spotifyURL = "https://api.spotify.com/v1/";
 
     $spotify_curl_options = [
         CURLOPT_URL => $spotifyURL . $url,
@@ -30,10 +30,13 @@ function makeSpotifyPostRequest($token, $url, $postData) {
             'Authorization: Bearer '.$token,
             'Content-Type: application/json'
         ],
-        CURLOPT_POST => true,
+        CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_RETURNTRANSFER => TRUE,
         CURLOPT_POSTFIELDS => json_encode($postData)
     ];
+    if ($putRequest == true) {
+        $spotify_curl_options[CURLOPT_CUSTOMREQUEST] = "PUT";
+    }
 
     curl_setopt_array($spotify_curl, $spotify_curl_options);
     $data_json = curl_exec($spotify_curl);

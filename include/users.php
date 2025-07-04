@@ -23,17 +23,17 @@
         $spotify_id = $profile['id'];
         
         dbQuery("
-            UPDATE users SET spotifyId='$spotify_id' WHERE userId='$userId'
-        ");
-        dbQuery("
-            UPDATE users SET profile='". json_encode($profile)."' WHERE userId='$userId'
-        ");
+            UPDATE users 
+            SET spotifyId= :spotifyId, profile= :profile
+            WHERE userId= :userId
+        ", [
+            ':spotifyId' => $spotify_id, 
+            ':profile' => json_encode($profile),
+            ':userId' => $userId
+        ]);
     }
     function getSpotifyProfile($userId) {
-        $profile_json = dbQuery("
-            SELECT profile FROM users WHERE userId='$userId'
-        ")->fetch()['profile'];
-
+        $profile_json = getUser($userId)['profile'];
         return $profile_json;
     }   
     function getStrideLength($userId) { // in meters, further gain accuracy by separating into walking stride length, jog stride length, run stride length, sprint stride length etc. 
@@ -41,10 +41,10 @@
             SELECT stride_length
             FROM users
             WHERE userId = $userId 
-        ")->fetch();
+        ")->fetch()['stride_length'];
         return $stride_length;
     }
-    function checkIfPlaylistExists($userId) {
+    function getUserPlaylist($userId) {
         $playlistId = dbQuery("
             SELECT playlistId FROM users WHERE userId='$userId'
         ")->fetch()['playlistId'] ?? NULL;
@@ -55,14 +55,20 @@
     }
     function sendPlaylistIdToDB($playlistId, $userId) {
         dbQuery("
-            UPDATE users SET playlistId='$playlistId' WHERE userId='$userId'
-        ");
+            UPDATE users SET playlistId= :playlistId WHERE userId= :userId
+        ", [
+            ':playlistId' => $playlistId, 
+            ':userId' => $userId
+        ]);
     }
     function setTotalSongs($token, $userId) {
         $total = totalSavedTracks($token);
         dbQuery(" 
-            UPDATE users SET total_songs ='$total' WHERE userId='$userId'
-        ");
+            UPDATE users SET total_songs = :total WHERE userId= :userId
+        ", [
+            ':total' => $total, 
+            ':userId' => $userId
+        ]);
     }
 
     function getTotalSongs($userId) {

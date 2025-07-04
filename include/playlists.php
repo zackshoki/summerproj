@@ -23,70 +23,35 @@ function updatePlaylist($playlistId, $songIds, $runDistance, $pace, $name = "def
         $formmattedSongIds[] = "spotify:track:".$songId;
     }
 
-    $url = 'https://api.spotify.com/v1/playlists/'.$playlistId.'/tracks';
+    $url = 'playlists/'.$playlistId.'/tracks';
 
     $formattedSongChunks = array_chunk($formmattedSongIds, 100);
-   
-    $spotify_curl = curl_init();
     
-    $spotify_curl_options = [
-        CURLOPT_URL => $url,
-        CURLOPT_HTTPHEADER => [
-            'Authorization: Bearer '.$token,
-            'Content-Type: application/json'
-        ],
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_RETURNTRANSFER => TRUE,
-    ];
-
     foreach($formattedSongChunks as $chunk) {
-        $postData = json_encode([
+        $postData = [
             'uris' => $chunk
-        ]);
-        $spotify_curl_options[CURLOPT_POSTFIELDS] = $postData;
-        curl_setopt_array($spotify_curl, $spotify_curl_options);
-        curl_exec($spotify_curl);
+        ];
+        makeSpotifyPostRequest($token, $url, $postData);
+
     }
 
     // update description and name 
-    $url = 'https://api.spotify.com/v1/playlists/'.$playlistId;
-    $postData = json_encode([
+    $url = 'playlists/'.$playlistId;
+    $postData = [
         'name' => $name, 
         'description' => "$runDistance miles, $pace min/mi pace"
-    ]);
-    $spotify_curl_options = [
-        CURLOPT_URL => $url,
-        CURLOPT_POSTFIELDS => $postData,
-        CURLOPT_CUSTOMREQUEST => "PUT"
-
     ];
-    curl_setopt_array($spotify_curl, $spotify_curl_options);
-    curl_exec($spotify_curl);
+    makeSpotifyPostRequest($token, $url, $postData, true);
 }
 
 function clearPlaylist($playlistId) {
     $token = tokenSetup(); 
-    $postData = json_encode([
+    $postData = [
         'uris' => []
-    ]);
-
-    $spotify_curl = curl_init();
-    $url = "https://api.spotify.com/v1/playlists/$playlistId/tracks";
-
-    $spotify_curl_options = [
-        CURLOPT_URL => $url,
-        CURLOPT_HTTPHEADER => [
-            'Authorization: Bearer '.$token,
-            'Content-Type: application/json'
-        ],
-        CURLOPT_CUSTOMREQUEST => 'PUT',
-        CURLOPT_RETURNTRANSFER => TRUE,
-        CURLOPT_POSTFIELDS => $postData
     ];
+    $url = "playlists/$playlistId/tracks";
 
-    curl_setopt_array($spotify_curl, $spotify_curl_options);
-    $data_json = curl_exec($spotify_curl);
-    $data = json_decode($data_json, true);
+    $data = makeSpotifyPostRequest($token, $url, $postData, true);
     
     return $data;
 }

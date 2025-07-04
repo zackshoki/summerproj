@@ -1,10 +1,14 @@
 <?php
     include('include/init.php');
     $token = tokenSetup(); 
-    $playlistId = checkIfPlaylistExists(1); // userId is hardcoded
+    $playlistId = getUserPlaylist(1); // userId is hardcoded
 
-    $distance = $_POST['run_distance'];
-    $pace = $_POST['pace'];
+    if (!empty($_POST['run_distance']) && !empty($_POST['pace'])) {
+        $distance = $_POST['run_distance'];
+        $pace = $_POST['pace'];
+    } else {
+        header('Location: index.php'); // redirect if the distance and pace are not set
+    }
 
     $minutes = distanceToMinutes($_POST['run_distance'], $_POST['pace']);
     $tempo = paceToTempo($_POST['pace']);
