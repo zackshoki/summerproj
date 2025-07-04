@@ -19,11 +19,37 @@ function makeSpotifyGetRequest($token, $url, $formatted_fields)
     return $data; 
     
 }
-function totalSavedTracks() {
-    global $token;
+
+function makeSpotifyPostRequest($token, $url, $postData, $putRequest = false) {
+    $spotify_curl = curl_init();
+    $spotifyURL = "https://api.spotify.com/v1/";
+
+    $spotify_curl_options = [
+        CURLOPT_URL => $spotifyURL . $url,
+        CURLOPT_HTTPHEADER => [
+            'Authorization: Bearer '.$token,
+            'Content-Type: application/json'
+        ],
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_RETURNTRANSFER => TRUE,
+        CURLOPT_POSTFIELDS => json_encode($postData)
+    ];
+    if ($putRequest == true) {
+        $spotify_curl_options[CURLOPT_CUSTOMREQUEST] = "PUT";
+    }
+
+    curl_setopt_array($spotify_curl, $spotify_curl_options);
+    $data_json = curl_exec($spotify_curl);
+    $data = json_decode($data_json, true);
+    
+    return $data; 
+}
+
+function totalSavedTracks($token) {
     $tracksInfo = makeSpotifyGetRequest($token, 'me/tracks', "limit=1");
     return $tracksInfo['total'];
 }
+
 function getAllSavedTracks() { 
     global $token;
     $totalTracks = getTotalSongs(1); // userId is hardcoded

@@ -54,3 +54,58 @@ function storeTrackData($fullTrackData)
     ");
     }
 }
+
+function getSongList($min, $max) { // gets all songs with a bpm between the values given and returns their spotifyids in an array format, store the length values of each song in the array as well
+    // this function should probably take both half-times (divide by 2) and double-times (multiply by 2) of the given min and max to account for clear issues of tempo calculations
+    if ($min < 0) {
+        $min = 0; 
+    }
+    $max2 = $max*2; 
+    $min2 = $min*2; 
+    $maxHalf = $max/2; 
+    $minHalf = $min/2; 
+
+    $songList = dbQuery("
+        SELECT spotifyId, length
+        FROM songs 
+        WHERE (tempo > $min AND tempo < $max)
+        OR
+        (tempo > $min2 AND tempo < $max2)
+        OR 
+        (tempo > $minHalf AND tempo < $maxHalf)
+    ")->fetchAll() ?? NULL; // potentially take tempo and name and display these in some way?
+    
+    $songList = array_filter($songList);
+    return $songList;
+}
+
+function constructPlaylist($min, $max, $lengthOfRunInMinutes) { // GREEDYYYYYOOH algorithm that will randomly shuffle the array given from getSongList and loop through picking a song and adding it to the new songlist until the new song list's length exceeds the length of the run, then returns the new song list
+    $songList = getSongList($min, $max);
+    $lengthOfRun = $lengthOfRunInMinutes * 60; // minutes to seconds
+    shuffle($songList);
+    $spotifyIds = [];
+    $lengthOfPlaylist = 0; // in seconds
+    $i = 0;
+    while ($lengthOfPlaylist < $lengthOfRun) {  // main loop
+        if (isset($songList[$i]['spotifyId']) && !in_array($songList[$i]['spotifyId'], $spotifyIds, true)) {
+            $lengthOfPlaylist = $lengthOfPlaylist + ($songList[$i]['length'] ?? 0);
+            $spotifyIds[] =  $songList[$i]['spotifyId'] ?? NULL;
+            
+        }
+        $i++;
+        if ($i >= count($songList)) { // if there's not enough songs at a certain tempo range, expand to diff tempos
+            $min = $min - 10;  
+            $songList = array_merge(getSongList($min, $min+10), getSongList($max, $max+10));
+            $max = $max + 10; 
+            $i = 0; 
+        } else if ($min < 0 && $max > 300) { // error handling
+            echo "ERROR, please save more songs for a run this long! <br>";
+            echo "<a href='index.php'>retry?</a>";
+            die;
+        } 
+    }
+    
+    $spotifyIds = array_filter($spotifyIds);
+    shuffle($spotifyIds);
+    return $spotifyIds;
+}

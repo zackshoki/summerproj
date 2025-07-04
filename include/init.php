@@ -12,4 +12,5 @@
     include('songs.php');
     include('store_track_data.php');
     include('conf.php');
+    include('playlists.php');
     $state = bin2hex(random_bytes(16 / 2)); // random string 16 digits long
